@@ -5,7 +5,7 @@ Population
 Source: https://quickstats.nass.usda.gov
 Notes:
   How to gather cattle data:
-   1. Go to https:quickstats.nass.usda.gov.
+   1. Go to https://quickstats.nass.usda.gov.
    2. Select "ANIMALS & PRODUCTS" under Sector.
    3. Select "LIVESTOCK" under Group.
    4. Select "CATTLE" under Commodity.
