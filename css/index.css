@@ -1,0 +1,13 @@
+body {
+  margin: 1em;
+  background-color: #f5f5f;
+  font-family: sans-serif;
+}
+
+#container {
+  width: 70em;
+}
+
+.d3-tip {
+  font-size: 1em;
+}
