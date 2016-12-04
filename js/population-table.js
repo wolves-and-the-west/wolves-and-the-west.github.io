@@ -40,8 +40,8 @@ PopulationTable = (function() {
       .data(function(d) { return [
         d.state,
         formatNumber(d.total),
-        formatNumber(d.cattle),
-        formatNumber(d.sheep),
+        formatNumber(d.cattle) + '<span class="pct">' + formatPercent(d.cattlePct) + '</span>',
+        formatNumber(d.sheep) + '<span class="pct">' + formatPercent(d.sheepPct) + '</span>',
         formatNumber(d.loss.total) + '<span class="pct">' + formatPercent(d.loss.totalPct) + '</span>',
         formatNumber(d.loss.cattle) + '<span class="pct">' + formatPercent(d.loss.cattlePct) + '</span>',
         formatNumber(d.loss.sheep) + '<span class="pct">' + formatPercent(d.loss.sheepPct) + '</span>',
