@@ -259,7 +259,7 @@ Population = (function() {
       .attr('class', 'sources')
       .html(
         '<strong>Sources</strong><br>' +
-        'Population: <a href="https://quickstats.nass.usda.gov" target="_blank">' +
+        'Populations and Losses: <a href="https://quickstats.nass.usda.gov" target="_blank">' +
         'USDA/NASS QuickStats Ad-hoc Query Tool' +
         '</a>' +
         '<br>' +
