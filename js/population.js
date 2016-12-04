@@ -11,22 +11,19 @@ Population = (function() {
   Population.height = 280;
   Population.width = 880;
   Population.areaMax = 125;
-  Population.legendAreaMax = 145;
-  Population.legendWidth = 150;
+  Population.legendAreaMax = 130;
+  Population.legendWidth = 140;
   Population.areaMargin = 10;
   Population.legendSize = 150;
   Population.areaColorScale = d3.scaleOrdinal()
-    .domain(['total', 'cattle', 'sheep', 'depredation'])
-    .range(['darkolivegreen', 'steelblue', 'silver', 'black']);
-  Population.stateTextScale = d3.scaleOrdinal()
-    .domain(['CO', 'ID', 'MT', 'OR', 'WA', 'WY', 'State'])
-    .range(['Colorado', 'Idaho', 'Montana', 'Oregon', 'Washington', 'Wyoming', 'State']);
+    .domain(['total', 'cattle', 'sheep', 'depredation', 'loss'])
+    .range(['darkolivegreen', 'steelblue', 'silver', 'black', 'red']);
   Population.tip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .direction('s')
     .html(function(d) {
-      return '<h1 class="header">' + Population.stateTextScale(d.data.state) + '</h1>' +
+      return '<h1 class="header">' + d.data.state + '</h1>' +
         '<h2 class="header">' + titleCase(d.type) + '</h2>' +
         '<table><tbody>' +
         '<tr>' +
@@ -35,7 +32,7 @@ Population = (function() {
             formatNumber(d.data[d.type]) +
           '</td>' +
           '<td>' +
-            formatPercent(d.data[d.type] / d.data.total) +
+            formatPercent(d.data[d.type + 'Pct']) +
           '</td>' +
         '</tr>' +
         '<tr>' +
@@ -44,7 +41,7 @@ Population = (function() {
             (d.data.depredation[d.type] == null ? 'No Data' : formatNumber(d.data.depredation[d.type])) +
           '</td>' +
           '<td>' +
-            (d.data.depredation[d.type] == null ? '&mdash;' : formatPercent(d.data.depredation[d.type] / d.data.total)) +
+            (d.data.depredation[d.type] == null ? '&mdash;' : formatPercentLong(d.data.depredation[d.type + 'Pct'])) +
           '</td>' +
         '</tr>' +
         '</tbody></table';
@@ -103,6 +100,15 @@ Population = (function() {
       .style('fill', Population.areaColorScale(type))
       .on('mouseover', isLegend ? null : Population.tip.show)
       .on('mouseout', isLegend ? null : Population.tip.hide);
+    area.selectAll('.loss')
+      .data(function(d) { return [d] })
+      .enter()
+      .append('rect')
+      .attr('class', 'loss')
+      .attr('x', function(d) { return areaScale(d.data[d.type]) - areaScale(d.data.loss[d.type]) })
+      .attr('y', function(d) { return areaMax - areaScale(d.data[d.type]) })
+      .attr('width', function(d) { return areaScale(d.data.loss[d.type]) })
+      .attr('height', function(d) { return areaScale(d.data.loss[d.type]) });
     area.selectAll('.depredation')
       .data(function(d) { return [d] })
       .enter()
@@ -144,7 +150,7 @@ Population = (function() {
       .enter()
       .append('text')
       .attr('class', 'state-label')
-      .text(function(d) { return Population.stateTextScale(d) });
+      .text(function(d) { return d });
 
     states.each(function() {
       var state = d3.select(this);
@@ -165,12 +171,17 @@ Population = (function() {
         total: this.stateMax,
         cattle: this.stateMax * (2/3),
         sheep: this.stateMax * (1/3),
-        depredation: {}
+        depredation: {},
+        loss: {}
       }
     ];
-    legendData[0].depredation.cattle = legendData[0].cattle * .01;
-    legendData[0].depredation.sheep = legendData[0].sheep * .01;
+    legendData[0].loss.cattle = legendData[0].cattle * .01;
+    legendData[0].loss.sheep = legendData[0].sheep * .01;
+    legendData[0].loss.total = legendData[0].loss.cattle + legendData[0].loss.sheep;
+    legendData[0].depredation.cattle = legendData[0].loss.cattle * .1;
+    legendData[0].depredation.sheep = legendData[0].loss.sheep * .1;
     legendData[0].depredation.total = legendData[0].depredation.cattle + legendData[0].depredation.sheep;
+
     var legend = this.svg.append('g')
       .attr('transform', 'translate(0,-10)')
     legend.append('rect')
@@ -179,7 +190,7 @@ Population = (function() {
       .attr('rx', 10)
       .attr('ry', 10)
       .attr('height', (Population.legendSize + (Population.areaMargin)) * 1.25)
-      .attr('width', Population.legendSize + (Population.areaMargin))
+      .attr('width', Population.legendWidth)
       .style('fill', '#ccc');
     legend.append('text')
       .attr('x', 10)
@@ -201,12 +212,24 @@ Population = (function() {
       });
     });
     var depredationG = legendG.append('g')
-      .attr('transform', 'translate(0,155)');
-    depredationG.append('rect')
+      .attr('transform', 'translate(0,140)');
+    var loss = depredationG.append('g');
+    loss.append('rect')
+      .attr('width', 10)
+      .attr('height', 10)
+      .attr('class', 'loss');
+    loss.append('text')
+      .attr('class', 'legend-label')
+      .attr('x', 15)
+      .attr('y', 8)
+      .text('= All Losses');
+    var d = depredationG.append('g')
+      .attr('transform', 'translate(0,15)');
+    d.append('rect')
       .attr('width', 10)
       .attr('height', 10)
       .style('fill', Population.areaColorScale('depredation'));
-    depredationG.append('text')
+    d.append('text')
       .attr('class', 'legend-label')
       .attr('x', 15)
       .attr('y', 8)

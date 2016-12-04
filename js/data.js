@@ -33,25 +33,44 @@ var populationDump = heredoc(function() {/*
 "SURVEY","2015","FIRST OF JAN","","STATE","WYOMING","56","","","","","","","00000000","","CATTLE","CATTLE, INCL CALVES - INVENTORY","TOTAL","NOT SPECIFIED","1,300,000",""
 "SURVEY","2015","FIRST OF JAN","","STATE","WYOMING","56","","","","","","","00000000","","SHEEP","SHEEP, INCL LAMBS - INVENTORY","TOTAL","NOT SPECIFIED","345,000",""
 */})
-var parsedPopulationData = d3.csvParse(populationDump);
+var populationData = prepCsvData(populationDump);
 
-var stateGrouped = d3.nest()
-  .key(function(d) { return d.State })
-  .entries(parsedPopulationData);
+/*
 
-var populationData = stateGrouped;
-populationData.forEach(function(state) {
-  state.state = titleCase(state.key);
-  delete state.key;
-  state.values.forEach(function(v) {
-    state[v.Commodity.toLowerCase()] = parseInt(v.Value.replace(/,/g, ''));
-  });
-  delete state.values;
-});
+Loss
+====
+Source: https://quickstats.nass.usda.gov
+Saved search: https://quickstats.nass.usda.gov/results/773DC93B-42E0-3DA6-958A-18E8A789AA24
+Notes:
+   1. Go to https://quickstats.nass.usda.gov.
+   2. Select "ANIMALS & PRODUCTS" under Sector.
+   3. Select "LIVESTOCK" under Group.
+   4. Select "CATTLE" and "SHEEP" under Commodity.
+   5. Select "LOSS, DEATH" under Category.
+   6. Select "CATTLE, CALVES - LOSS, DEATH, MEASURED IN HEAD" and "SHEEP, LAMBS - LOSS, DEATH, MEASURED IN HEAD" under Data Item.
+   7. Select "TOTAL" under Domain.
+   8. Select "STATE" under Geographic Level.
+   9. Choose states: COLORADO, IDAHO, MONTANA, OREGON, WASHINGTON, WYOMING.
+  10. Select "2015" under Year.
+  11. Click Get Data.
 
-populationData.forEach(function(d) {
-  d.total = d.cattle + d.sheep;
-});
+*/
+var lossDump = heredoc(function() {/*
+"Program","Year","Period","Week Ending","Geo Level","State","State ANSI","Ag District","Ag District Code","County","County ANSI","Zip Code","Region","watershed_code","Watershed","Commodity","Data Item","Domain","Domain Category","Value","CV (%)"
+"SURVEY","2015","YEAR","","STATE","COLORADO","08","","","","","","","00000000","","CATTLE","CATTLE, CALVES - LOSS, DEATH, MEASURED IN HEAD","TOTAL","NOT SPECIFIED","55,000",""
+"SURVEY","2015","YEAR","","STATE","COLORADO","08","","","","","","","00000000","","SHEEP","SHEEP, LAMBS - LOSS, DEATH, MEASURED IN HEAD","TOTAL","NOT SPECIFIED","16,000",""
+"SURVEY","2015","YEAR","","STATE","IDAHO","16","","","","","","","00000000","","CATTLE","CATTLE, CALVES - LOSS, DEATH, MEASURED IN HEAD","TOTAL","NOT SPECIFIED","52,000",""
+"SURVEY","2015","YEAR","","STATE","IDAHO","16","","","","","","","00000000","","SHEEP","SHEEP, LAMBS - LOSS, DEATH, MEASURED IN HEAD","TOTAL","NOT SPECIFIED","11,000",""
+"SURVEY","2015","YEAR","","STATE","MONTANA","30","","","","","","","00000000","","CATTLE","CATTLE, CALVES - LOSS, DEATH, MEASURED IN HEAD","TOTAL","NOT SPECIFIED","62,000",""
+"SURVEY","2015","YEAR","","STATE","MONTANA","30","","","","","","","00000000","","SHEEP","SHEEP, LAMBS - LOSS, DEATH, MEASURED IN HEAD","TOTAL","NOT SPECIFIED","16,000",""
+"SURVEY","2015","YEAR","","STATE","OREGON","41","","","","","","","00000000","","CATTLE","CATTLE, CALVES - LOSS, DEATH, MEASURED IN HEAD","TOTAL","NOT SPECIFIED","40,000",""
+"SURVEY","2015","YEAR","","STATE","OREGON","41","","","","","","","00000000","","SHEEP","SHEEP, LAMBS - LOSS, DEATH, MEASURED IN HEAD","TOTAL","NOT SPECIFIED","7,000",""
+"SURVEY","2015","YEAR","","STATE","WASHINGTON","53","","","","","","","00000000","","CATTLE","CATTLE, CALVES - LOSS, DEATH, MEASURED IN HEAD","TOTAL","NOT SPECIFIED","22,000",""
+"SURVEY","2015","YEAR","","STATE","WASHINGTON","53","","","","","","","00000000","","SHEEP","SHEEP, LAMBS - LOSS, DEATH, MEASURED IN HEAD","TOTAL","NOT SPECIFIED","2,000",""
+"SURVEY","2015","YEAR","","STATE","WYOMING","56","","","","","","","00000000","","CATTLE","CATTLE, CALVES - LOSS, DEATH, MEASURED IN HEAD","TOTAL","NOT SPECIFIED","27,000",""
+"SURVEY","2015","YEAR","","STATE","WYOMING","56","","","","","","","00000000","","SHEEP","SHEEP, LAMBS - LOSS, DEATH, MEASURED IN HEAD","TOTAL","NOT SPECIFIED","11,000",""
+*/})
+var lossData = prepCsvData(lossDump);
 
 /*
 
@@ -101,11 +120,29 @@ var depredationData = {
 // Combined.
 populationDepredationData = _.clone(populationData);
 populationDepredationData.forEach(function(pd) {
+  pd.total = pd.cattle + pd.sheep;
+  pd.cattlePct = pd.cattle / pd.total;
+  pd.sheepPct = pd.sheep / pd.total;
+  pd.totalPct = 1;
+
   var dd = pd.depredation = depredationData.data.filter(function(d) {
     return d.state == pd.state;
   })[0];
-  dd.total = dd.cattle + dd.sheep;
+  dd.total = (dd.cattle != null && dd.sheep !=null ? dd.cattle + dd.sheep : null);
+  dd.cattlePct = dd.cattle / pd.cattle;
+  dd.sheepPct = dd.sheep / pd.sheep;
+  dd.totalPct = dd.total / pd.total;
+  console.log(dd.total, pd.total, dd.totalPct);
   delete dd.state;
+
+  var ld = pd.loss = lossData.filter(function(d) {
+    return d.state == pd.state;
+  })[0];
+  ld.total = ld.cattle + ld.sheep;
+  ld.cattlePct = ld.cattle / ld.total;
+  ld.sheepPct = ld.sheep / ld.total;
+  ld.totalPct = ld.total / pd.total;
+  delete ld.state;
 });
 
 console.log(populationDepredationData);
