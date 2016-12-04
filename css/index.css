@@ -8,6 +8,43 @@ body {
   width: 70em;
 }
 
+.section-header {
+  font-size: 2em;
+  margin-bottom: 0.25em;
+}
+
+.section-header:first-child {
+  margin-top: 0;
+}
+
 .d3-tip {
   font-size: 1em;
+}
+
+.legend-label {
+  font-size: 0.75em;
+}
+
+.state-label {
+  font-size: 0.75em;
+}
+
+.area {
+  fill-opacity: 0.75;
+}
+
+.d3-tip .header {
+  margin: 0;
+}
+
+.d3-tip table th {
+  text-align: left;
+}
+
+.d3-tip table td:nth-child(n+1) {
+  text-align: right;
+}
+
+.d3-tip td {
+  padding: 0.25em;
 }

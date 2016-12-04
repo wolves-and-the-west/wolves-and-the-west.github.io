@@ -55,3 +55,54 @@ var populationData = {
 populationData.data.forEach(function(d) {
   d.total = d.cattle + d.sheep;
 });
+
+/*
+
+Depredation
+===========
+Source: https://www.fws.gov/mountain-prairie/es/species/mammals/wolf/2016/FINAL_NRM%20summary%20-%202015.pdf
+Notes:
+  FWS data is preferred as wolf depredations are confirmed (unlike USDA).
+
+*/
+var depredationData = {
+  year: 2015,
+  data: [
+    {
+      state: 'ID',
+      cattle: 35,
+      sheep: 125
+    },
+    {
+      state: 'MT',
+      cattle: 41,
+      sheep: 21
+    },
+    {
+      state: 'OR',
+      cattle: 3,
+      sheep: 10
+    },
+    {
+      state: 'WA',
+      cattle: 7,
+      sheep: 0
+    },
+    {
+      state: 'WY',
+      cattle: 72,
+      sheep: 62
+    }
+  ]
+}
+
+// Combined.
+populationDepredationData = _.clone(populationData);
+populationDepredationData.data.forEach(function(pd) {
+  var dd = pd.depredation = depredationData.data.filter(function(d) {
+    return d.state == pd.state;
+  })[0];
+  dd.total = dd.cattle + dd.sheep;
+});
+
+console.log(populationDepredationData);
