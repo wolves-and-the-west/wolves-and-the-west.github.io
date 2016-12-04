@@ -164,13 +164,12 @@ Population = (function() {
         total: this.stateMax,
         cattle: this.stateMax * (2/3),
         sheep: this.stateMax * (1/3),
-        depredation: {
-          total: this.stateMax * .02,
-          cattle: this.stateMax * (2/3) * .01,
-          sheep: this.stateMax * (1/3) * .01
-        }
+        depredation: {}
       }
     ];
+    legendData[0].depredation.cattle = legendData[0].cattle * .01;
+    legendData[0].depredation.sheep = legendData[0].sheep * .01;
+    legendData[0].depredation.total = legendData[0].depredation.cattle + legendData[0].depredation.sheep;
     var legend = this.svg.append('g')
       .attr('transform', 'translate(0,-10)')
     legend.append('rect')
