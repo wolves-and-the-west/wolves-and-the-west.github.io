@@ -11,7 +11,7 @@ Population = (function() {
   Population.height = 280;
   Population.width = 880;
   Population.areaMax = 125;
-  Population.legendAreaMax = 125;
+  Population.legendAreaMax = 145;
   Population.legendWidth = 150;
   Population.areaMargin = 10;
   Population.legendSize = 150;
@@ -56,6 +56,7 @@ Population = (function() {
     this.buildSVG();
     this.buildStates();
     this.buildLegend();
+    this.buildSource();
   }
 
   Population.prototype.buildSupporting = function() {
@@ -177,13 +178,13 @@ Population = (function() {
       .attr('y', 0)
       .attr('rx', 10)
       .attr('ry', 10)
-      .attr('height', (Population.legendSize + (Population.areaMargin)) * 1.13)
+      .attr('height', (Population.legendSize + (Population.areaMargin)) * 1.25)
       .attr('width', Population.legendSize + (Population.areaMargin))
       .style('fill', '#ccc');
     legend.append('text')
       .attr('x', 10)
       .attr('y', 25)
-      .text('Legend');
+      .text('State');
     var legendG = legend.append('g')
       .attr('transform', 'translate(10,25)');
     var area = legendG.selectAll('.legend')
@@ -200,7 +201,7 @@ Population = (function() {
       });
     });
     var depredationG = legendG.append('g')
-      .attr('transform', 'translate(0,135)');
+      .attr('transform', 'translate(0,155)');
     depredationG.append('rect')
       .attr('width', 10)
       .attr('height', 10)
@@ -211,6 +212,29 @@ Population = (function() {
       .attr('y', 8)
       .text('= Wolf Depredation');
 
+  }
+
+  Population.prototype.buildSource = function() {
+    var source = this.svg.append('g')
+      .attr('transform', function(d, i) {
+        return 'translate(' +
+          (Population.legendWidth + (Population.areaMargin*2)) + ',150)';
+      })
+      .append('foreignObject')
+      .attr('width', 500)
+      .attr('height', 100);
+    source.append('xhtml:p')
+      .attr('class', 'sources')
+      .html(
+        '<strong>Sources</strong><br>' +
+        'Population: <a href="https://quickstats.nass.usda.gov" target="_blank">' +
+        'USDA/NASS QuickStats Ad-hoc Query Tool' +
+        '</a>' +
+        '<br>' +
+        'Depredation: <a href="https://www.fws.gov/mountain-prairie/es/species/mammals/wolf/2016/FINAL_NRM%20summary%20-%202015.pdf" target="_blank">' +
+        'Northern Rocky Mountain Wolf Recovery Program 2015 Interagency Annual Report' +
+        '</a>'
+      );
   }
 
   return Population;

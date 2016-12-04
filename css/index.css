@@ -48,3 +48,8 @@ body {
 .d3-tip td {
   padding: 0.25em;
 }
+
+.sources {
+  font-size: 0.5em;
+  line-height: 1.5;
+}
