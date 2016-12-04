@@ -166,8 +166,8 @@ Population = (function() {
         sheep: this.stateMax * (1/3),
         depredation: {
           total: this.stateMax * .02,
-          cattle: this.stateMax * .01,
-          sheep: this.stateMax * .01
+          cattle: this.stateMax * (2/3) * .01,
+          sheep: this.stateMax * (1/3) * .01
         }
       }
     ];
