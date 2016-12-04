@@ -60,7 +60,7 @@ Population = (function() {
   }
 
   Population.prototype.buildSupporting = function() {
-    this.stateMax = d3.max(this.pD.data, function(d) { return d.total });
+    this.stateMax = d3.max(this.pD, function(d) { return d.total });
     this.areaScale = d3.scaleSqrt()
       .domain([0, this.stateMax])
       .range([0, Population.areaMax - Population.areaMargin]);
@@ -130,7 +130,7 @@ Population = (function() {
     var stateG = this.svg.append('g')
       .attr('transform', 'translate(' + (Population.areaMargin * 2) + ',15)');
     var states = stateG.selectAll('.state')
-      .data(this.pD.data.sort(function(a, b) {
+      .data(this.pD.sort(function(a, b) {
         return d3.descending(a.total, b.total);
       }))
       .enter()
