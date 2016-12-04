@@ -19,8 +19,8 @@ Population = (function() {
     .domain(['total', 'cattle', 'sheep', 'depredation'])
     .range(['darkolivegreen', 'steelblue', 'silver', 'black']);
   Population.stateTextScale = d3.scaleOrdinal()
-    .domain(['ID', 'MT', 'OR', 'WA', 'WY', 'State'])
-    .range(['Idaho', 'Montana', 'Oregon', 'Washington', 'Wyoming', 'State']);
+    .domain(['CO', 'ID', 'MT', 'OR', 'WA', 'WY', 'State'])
+    .range(['Colorado', 'Idaho', 'Montana', 'Oregon', 'Washington', 'Wyoming', 'State']);
   Population.tip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([-10, 0])
@@ -41,10 +41,10 @@ Population = (function() {
         '<tr>' +
           '<th>Wolf Depredations</th>' +
           '<td>' +
-            formatNumber(d.data.depredation[d.type]) +
+            (d.data.depredation[d.type] == null ? 'No Data' : formatNumber(d.data.depredation[d.type])) +
           '</td>' +
           '<td>' +
-            formatPercent(d.data.depredation[d.type] / d.data.total) +
+            (d.data.depredation[d.type] == null ? '&mdash;' : formatPercent(d.data.depredation[d.type] / d.data.total)) +
           '</td>' +
         '</tr>' +
         '</tbody></table';

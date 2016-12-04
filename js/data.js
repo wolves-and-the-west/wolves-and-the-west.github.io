@@ -26,6 +26,11 @@ var populationData = {
   year: 2015,
   data: [
     {
+      state: 'CO',
+      cattle: 105000,
+      sheep: 420000
+    },
+    {
       state: 'ID',
       cattle: 310000,
       sheep: 260000
@@ -68,6 +73,11 @@ Notes:
 var depredationData = {
   year: 2015,
   data: [
+    {
+      state: 'CO',
+      cattle: null,
+      sheep: null
+    },
     {
       state: 'ID',
       cattle: 35,
