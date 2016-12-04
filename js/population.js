@@ -36,6 +36,15 @@ Population = (function() {
           '</td>' +
         '</tr>' +
         '<tr>' +
+          '<th>Losses</th>' +
+          '<td>' +
+            formatNumber(d.data.loss[d.type]) +
+          '</td>' +
+          '<td>' +
+            formatPercent(d.data.loss[d.type + 'Pct']) +
+          '</td>' +
+        '</tr>' +
+        '<tr>' +
           '<th>Wolf Depredations</th>' +
           '<td>' +
             (d.data.depredation[d.type] == null ? 'No Data' : formatNumber(d.data.depredation[d.type])) +
