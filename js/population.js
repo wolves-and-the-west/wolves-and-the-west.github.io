@@ -127,7 +127,7 @@ Population = (function() {
   Population.prototype.buildStates = function() {
     var _this = this;
     var stateG = this.svg.append('g')
-      .attr('transform', 'translate(' + (Population.areaMargin * 2) + ',0)');
+      .attr('transform', 'translate(' + (Population.areaMargin * 2) + ',15)');
     var states = stateG.selectAll('.state')
       .data(this.pD.data.sort(function(a, b) {
         return d3.descending(a.total, b.total);
