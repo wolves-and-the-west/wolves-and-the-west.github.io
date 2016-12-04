@@ -8,7 +8,7 @@ Population = (function() {
     right: 0,
     left: 0
   };
-  Population.height = 280;
+  Population.height = 210;
   Population.width = 880;
   Population.areaMax = 125;
   Population.legendAreaMax = 130;
@@ -233,7 +233,7 @@ Population = (function() {
       .attr('class', 'legend-label')
       .attr('x', 15)
       .attr('y', 8)
-      .text('= Wolf Depredation');
+      .text('= Wolf Depredations');
 
   }
 

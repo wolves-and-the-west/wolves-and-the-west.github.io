@@ -129,8 +129,8 @@ populationDepredationData.forEach(function(pd) {
     return d.state == pd.state;
   })[0];
   dd.total = (dd.cattle != null && dd.sheep !=null ? dd.cattle + dd.sheep : null);
-  dd.cattlePct = dd.cattle / pd.cattle;
-  dd.sheepPct = dd.sheep / pd.sheep;
+  dd.cattlePct = dd.cattle / pd.total;
+  dd.sheepPct = dd.sheep / pd.total;
   dd.totalPct = dd.total / pd.total;
   console.log(dd.total, pd.total, dd.totalPct);
   delete dd.state;
@@ -139,8 +139,8 @@ populationDepredationData.forEach(function(pd) {
     return d.state == pd.state;
   })[0];
   ld.total = ld.cattle + ld.sheep;
-  ld.cattlePct = ld.cattle / ld.total;
-  ld.sheepPct = ld.sheep / ld.total;
+  ld.cattlePct = ld.cattle / pd.total;
+  ld.sheepPct = ld.sheep / pd.total;
   ld.totalPct = ld.total / pd.total;
   delete ld.state;
 });

@@ -58,3 +58,55 @@ body {
   fill: firebrick;
   fill-opacity: 0.5;
 }
+
+table td:nth-child(n+2) {
+  text-align: right
+}
+
+th {
+  border-bottom: 1px solid black;
+  padding: 0.25em 0;
+}
+
+td {
+  padding: 0.25em 0.5em;
+}
+
+td:first-child {
+  padding-left: 0;
+}
+
+th:first-child {
+  text-align: left;
+}
+
+th:empty {
+  border: none;
+}
+
+table {
+  width: 100%;
+  border-spacing: 0.5em 0;
+}
+
+.population-table td:nth-child(2), 
+.population-table td:nth-child(5),
+.population-table td:nth-child(8),
+.population-table-header th:nth-child(2), 
+.population-table-header th:nth-child(5),
+.population-table-header th:nth-child(8)
+{
+  background: #ddd;
+}
+
+.pct {
+  display; inline-block;
+  margin-left: 0.5em;
+  opacity: 0.5;
+}
+.pct:before {
+  content: '(';
+}
+.pct:after {
+  content: ')';
+}
