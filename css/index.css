@@ -37,8 +37,13 @@ body {
   margin: 0;
 }
 
+.d3-tip table {
+  margin-top: 1em;
+}
+
 .d3-tip table th {
   text-align: left;
+  border: none;
 }
 
 .d3-tip table td:nth-child(n+1) {
