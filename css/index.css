@@ -13,6 +13,10 @@ body {
   margin-bottom: 0.25em;
 }
 
+.section-header sup {
+  font-size: 0.5em;
+}
+
 .section-header:first-child {
   margin-top: 0;
 }
@@ -43,11 +47,6 @@ body {
 
 .d3-tip td {
   padding: 0.25em;
-}
-
-.sources {
-  font-size: 0.5em;
-  line-height: 1.5;
 }
 
 .loss {
@@ -111,4 +110,10 @@ hr {
   border: none;
   border-bottom: 1px solid black;
   opacity: 0.5;
+}
+
+.sources-header {
+  font-size: 1em;
+  margin: 0;
+  margin-top: 1em;
 }

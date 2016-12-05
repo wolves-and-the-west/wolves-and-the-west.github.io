@@ -62,7 +62,6 @@ Population = (function() {
     this.buildSVG();
     this.buildStates();
     this.buildLegend();
-    this.buildSource();
   }
 
   Population.prototype.buildSupporting = function() {
@@ -244,29 +243,6 @@ Population = (function() {
       .attr('y', 8)
       .text('= Wolf Depredations');
 
-  }
-
-  Population.prototype.buildSource = function() {
-    var source = this.svg.append('g')
-      .attr('transform', function(d, i) {
-        return 'translate(' +
-          (Population.legendWidth + (Population.areaMargin*2)) + ',150)';
-      })
-      .append('foreignObject')
-      .attr('width', 500)
-      .attr('height', 100);
-    source.append('xhtml:p')
-      .attr('class', 'sources')
-      .html(
-        '<strong>Sources</strong><br>' +
-        'Populations and Losses: <a href="https://quickstats.nass.usda.gov" target="_blank">' +
-        'USDA/NASS QuickStats Ad-hoc Query Tool' +
-        '</a>' +
-        '<br>' +
-        'Depredation: <a href="https://www.fws.gov/mountain-prairie/es/species/mammals/wolf/2016/FINAL_NRM%20summary%20-%202015.pdf" target="_blank">' +
-        'Northern Rocky Mountain Wolf Recovery Program 2015 Interagency Annual Report' +
-        '</a>'
-      );
   }
 
   return Population;
