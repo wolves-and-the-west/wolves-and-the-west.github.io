@@ -110,3 +110,9 @@ table {
 .pct:after {
   content: ')';
 }
+
+hr {
+  border: none;
+  border-bottom: 1px solid black;
+  opacity: 0.5;
+}
