@@ -47,7 +47,7 @@ Population = (function() {
         '<tr>' +
           '<th>Wolf Depredations</th>' +
           '<td>' +
-            (d.data.depredation[d.type] == null ? 'No Data' : formatNumber(d.data.depredation[d.type])) +
+            (d.data.depredation[d.type] == null ? NO_DATA : formatNumber(d.data.depredation[d.type])) +
           '</td>' +
           '<td>' +
             (d.data.depredation[d.type] == null ? '&mdash;' : formatPercentLong(d.data.depredation[d.type + 'Pct'])) +
@@ -228,7 +228,7 @@ Population = (function() {
       .attr('class', 'loss');
     loss.append('text')
       .attr('class', 'legend-label')
-      .attr('x', 15)
+      .attr('x', 13)
       .attr('y', 8)
       .text('= All Losses');
     var d = depredationG.append('g')
@@ -239,7 +239,7 @@ Population = (function() {
       .style('fill', Population.areaColorScale('depredation'));
     d.append('text')
       .attr('class', 'legend-label')
-      .attr('x', 15)
+      .attr('x', 13)
       .attr('y', 8)
       .text('= Wolf Depredations');
 
