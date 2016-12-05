@@ -20,7 +20,7 @@ Population = (function() {
     .range(['darkolivegreen', 'steelblue', 'silver', 'black', 'red']);
   Population.tip = d3.tip()
     .attr('class', 'd3-tip')
-    .offset([-10, 0])
+    .offset([10, 0])
     .direction('s')
     .html(function(d) {
       return '<h1 class="header">' + d.data.state + '</h1>' +
