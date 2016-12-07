@@ -9,7 +9,7 @@ body {
 }
 
 .section-header {
-  font-size: 2em;
+  font-size: 1.5em;
   margin-bottom: 0.25em;
 }
 
@@ -26,7 +26,7 @@ body {
 }
 
 .legend-label {
-  font-size: 0.75em;
+  font-size: 0.6em;
 }
 
 .area {
@@ -72,6 +72,10 @@ td {
   padding: 0.25em 0.25em;
 }
 
+.population-table td {
+  font-size: 0.75em;
+}
+
 td:first-child {
   padding-left: 0;
 }
@@ -99,6 +103,8 @@ table {
 .population-table td:nth-child(8),
 .population-table td:nth-child(13),
 .population-table td:nth-child(14),
+.population-table td:nth-child(19),
+.population-table td:nth-child(20),
 .population-table-header th:nth-child(2), 
 .population-table-header th:nth-child(5),
 .population-table-header th:nth-child(8)
@@ -110,9 +116,11 @@ table {
 .population-table td:nth-child(2),
 .population-table td:nth-child(7),
 .population-table td:nth-child(13),
+.population-table td:nth-child(19),
 .population-table-header th:nth-child(2), 
 .population-table-header th:nth-child(5),
-.population-table-header th:nth-child(8)
+.population-table-header th:nth-child(8),
+.population-table-header th:nth-child(11)
 {
   border-left: 1em solid white;
 }

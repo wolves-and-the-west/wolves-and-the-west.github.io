@@ -2,8 +2,8 @@ var PopulationTable;
 
 PopulationTable = (function() {
 
-  function PopulationTable(populationDepredationData) {
-    this.pD = populationData;
+  function PopulationTable(data) {
+    this.data = data;
     this.buildTable();
   }
 
@@ -22,11 +22,14 @@ PopulationTable = (function() {
       .text('All Losses');
     row.append('th')
       .attr('colspan', 6)
-      .text('Wolf Depredations');
+      .text('Confirmed Wolf Depredations');
+    row.append('th')
+      .attr('colspan', 6)
+      .text('Unconfirmed Wolf Depredations');
     row = thead.append('tr')
       .attr('class', 'population-table-header');
     row.append('th').text('State');
-    for (var i = 0; i < 3; i ++) {
+    for (var i = 0; i < 4; i ++) {
       row.append('th')
         .attr('colspan', i == 0 ? 1 : 2)
         .text('Total');
@@ -39,29 +42,35 @@ PopulationTable = (function() {
     }
     var tbody = table.append('tbody');
     var state = tbody.selectAll('tr')
-      .data(populationData)
+      .data(this.data)
       .enter()
       .append('tr');
     state.selectAll('td')
       .data(function(d) { return [
         d.state,
-        formatNumber(d.total),
-        formatNumber(d.cattle),
-        '<span class="pct">' + formatPercent(d.cattlePct) + '</span>',
-        formatNumber(d.sheep),
-        '<span class="pct">' + formatPercent(d.sheepPct) + '</span>',
+        formatNumber(d.inventory.total),
+        formatNumber(d.inventory.cattle),
+        '<span class="pct">' + formatPercent(d.inventory.cattlePct) + '</span>',
+        formatNumber(d.inventory.sheep),
+        '<span class="pct">' + formatPercent(d.inventory.sheepPct) + '</span>',
         formatNumber(d.loss.total),
         '<span class="pct">' + formatPercent(d.loss.totalPct) + '</span>',
         formatNumber(d.loss.cattle),
         '<span class="pct">' + formatPercent(d.loss.cattlePct) + '</span>',
         formatNumber(d.loss.sheep),
         '<span class="pct">' + formatPercent(d.loss.sheepPct) + '</span>',
-        d.depredation.total == null ? NO_DATA : formatNumber(d.depredation.total),
-        d.depredation.total == null ? '<span class="mdash">&mdash;</span>' : '<span class="pct">' + formatPercentLong(d.depredation.totalPct) + '</span>',
-        d.depredation.cattle  == null ? NO_DATA : formatNumber(d.depredation.cattle),
-        d.depredation.total == null ? '<span class="mdash">&mdash;</span>' : '<span class="pct">' + formatPercentLong(d.depredation.cattlePct) + '</span>',
-        d.depredation.sheep  == null ? NO_DATA : formatNumber(d.depredation.sheep),
-        d.depredation.total == null ? '<span class="mdash">&mdash;</span>' : '<span class="pct">' + formatPercentLong(d.depredation.sheepPct) + '</span>',
+        d.confirmedDepredation.total == null ? NO_DATA : formatNumber(d.confirmedDepredation.total),
+        d.confirmedDepredation.total == null ? NO_DATA : '<span class="pct">' + formatPercentLong(d.confirmedDepredation.totalPct) + '</span>',
+        d.confirmedDepredation.cattle  == null ? NO_DATA : formatNumber(d.confirmedDepredation.cattle),
+        d.confirmedDepredation.total == null ? NO_DATA : '<span class="pct">' + formatPercentLong(d.confirmedDepredation.cattlePct) + '</span>',
+        d.confirmedDepredation.sheep  == null ? NO_DATA : formatNumber(d.confirmedDepredation.sheep),
+        d.confirmedDepredation.total == null ? NO_DATA : '<span class="pct">' + formatPercentLong(d.confirmedDepredation.sheepPct) + '</span>',
+        NO_DATA,
+        NO_DATA,
+        d.unconfirmedDepredation.all.wolfDepredations  == null ? NO_DATA : formatNumber(d.unconfirmedDepredation.all.wolfDepredations),
+        d.unconfirmedDepredation.all.percentWolfDepredationsOfInventory == null ? NO_DATA : '<span class="pct">' + formatPercentLong(d.unconfirmedDepredation.all.percentWolfDepredationsOfInventory) + '</span>',
+        NO_DATA,
+        NO_DATA
       ]})
       .enter()
       .append('td')

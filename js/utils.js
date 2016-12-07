@@ -11,18 +11,47 @@ var heredoc = function(f) {
 }
 
 var prepCsvData = function(csv) {
-  var stateGrouped = d3.nest()
+  var grouped = d3.nest()
     .key(function(d) { return d.State })
     .entries(d3.csvParse(csv));
 
-  stateGrouped.forEach(function(state) {
+  grouped.forEach(function(state) {
     state.state = titleCase(state.key);
+    state.total = 0;
     delete state.key;
     state.values.forEach(function(v) {
-      state[v.Commodity.toLowerCase()] = parseInt(v.Value.replace(/,/g, ''));
+      var value = parseInt(v.Value.replace(/,/g, ''));
+      state[v.Commodity.toLowerCase()] = value;
+      state.total += value;
     });
     delete state.values;
   });
 
-  return stateGrouped;
+  return grouped;
+}
+
+var parseUSDA = function(data) {
+  var out = [];
+  var lines = data.split("\n");
+  lines.forEach(function(line) {
+    var cols = line.split(/\s+\.+:\s+|\s+/);
+    cols = cols.map(function(d) {
+      return d.replace(/,/g, '');
+    });
+    out.push(cols);
+  });
+  return out;
+}
+
+var getUSDAWolfLossPercent = function(state, data) {
+  var pct = data.filter(function(d) {
+    return state == d[0];
+  })[0][5];
+  return pct == '-' ? null : +pct / 100;
+}
+
+var addIfNotNull = function(a, b) {
+  return (a != null && b != null) ?
+    a + b :
+    null;
 }
