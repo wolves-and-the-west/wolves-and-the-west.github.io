@@ -262,4 +262,8 @@ inventoryData.forEach(function(pd) {
   });
 });
 
+data.sort(function(a, b) {
+  return d3.descending(a.inventory.total, b.inventory.total);
+})
+
 console.log(data);
