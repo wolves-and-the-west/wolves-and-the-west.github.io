@@ -140,3 +140,10 @@ hr {
   display: inline-block;
   width: 100%;
 }
+
+.alert {
+  color: snow;
+  background: black;
+  padding: 1em;
+  margin: -1em -1em 1em -1em;
+}
