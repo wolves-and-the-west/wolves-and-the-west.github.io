@@ -14,13 +14,13 @@ Population = (function() {
   Population.stateMax = 125;
   Population.stateMargin = 10;
 
-  Population.legendMax = 130;
+  Population.legendMax = 155;
   Population.legendWidth = 140;
   Population.legendSize = 150;
 
   Population.areaColorScale = d3.scaleOrdinal()
-    .domain(['total', 'cattle', 'sheep', 'confirmedWolfDepredations', 'unconfirmedWolfDepredations', 'loss'])
-    .range(['olivedrab', 'steelblue', 'silver', 'black', 'gray', 'firebrick']);
+    .domain(['cattle', 'sheep', 'confirmedWolfDepredations', 'unconfirmedWolfDepredations', 'loss'])
+    .range(['steelblue', 'silver', 'firebrick', 'red', 'black']);
   
   Population.tip = d3.tip()
     .attr('class', 'd3-tip')
@@ -79,7 +79,7 @@ Population = (function() {
   }
 
   Population.prototype.buildScales = function() {
-    this.inventoryMax = d3.max(this.data, function(d) { return d.inventory.total });
+    this.inventoryMax = d3.max(this.data, function(d) { return Math.max(d.inventory.cattle, d.inventory.sheep) });
     this.inventoryScale = d3.scaleSqrt()
       .domain([0, this.inventoryMax])
       .range([0, Population.stateMax - Population.stateMargin]);
@@ -113,7 +113,7 @@ Population = (function() {
       .style('fill', Population.areaColorScale(fill));
   }
 
-  // type = total, cattle, sheep
+  // type = cattle, sheep
   Population.prototype.buildArea = function(state, type, _this, isLegend=false) {
     var inventoryScale = isLegend ? _this.legendInventoryScale : _this.inventoryScale;
     var stateMax = isLegend ? Population.legendMax : Population.stateMax;
@@ -203,7 +203,6 @@ Population = (function() {
     states.each(function() {
       var state = d3.select(this);
       var data = state.datum();
-      state.call(_this.buildArea, 'total', _this);
       var areas = data.inventory.cattle > data.inventory.sheep ? ['cattle', 'sheep'] : ['sheep', 'cattle'];
       areas.forEach(function(area) {
         state.call(_this.buildArea, area, _this);
@@ -245,16 +244,16 @@ Population = (function() {
       .attr('y', 0)
       .attr('rx', 10)
       .attr('ry', 10)
-      .attr('height', (Population.legendSize + (Population.stateMargin)) * 1.35)
+      .attr('height', (Population.legendSize + (Population.stateMargin)) * 1.3)
       .attr('width', Population.legendWidth)
-      .style('fill', '#ccc');
+      .style('fill', '#ddd  ');
     legend.append('text')
       .attr('x', 10)
-      .attr('y', 25)
+      .attr('y', 20)
       .text('State');
     var legendG = legend.append('g')
       .attr('class', 'state')
-      .attr('transform', 'translate(10,25)');
+      .attr('transform', 'translate(10,-10)');
     var area = legendG.selectAll('.legend')
       .data(legendData)
       .enter()
@@ -262,14 +261,13 @@ Population = (function() {
     area.each(function() {
       var state = d3.select(this);
       var data = state.datum();
-      state.call(_this.buildArea, 'total', _this, true);
       var areas = data.inventory.cattle > data.inventory.sheep ? ['cattle', 'sheep'] : ['sheep', 'cattle'];
       areas.forEach(function(area) {
         state.call(_this.buildArea, area, _this, true);
       });
     });
     var depredationG = legendG.append('g')
-      .attr('transform', 'translate(0,140)');
+      .attr('transform', 'translate(0,165)');
     var loss = depredationG.append('g');
     loss.append('rect')
       .attr('width', 10)

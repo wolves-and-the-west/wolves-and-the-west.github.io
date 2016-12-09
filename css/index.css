@@ -29,10 +29,6 @@ body {
   font-size: 0.6em;
 }
 
-.state {
-  fill-opacity: 0.75;
-}
-
 .d3-tip .header {
   margin: 0;
 }
