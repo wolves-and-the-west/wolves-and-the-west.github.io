@@ -16,7 +16,7 @@ PopulationTable = (function() {
     row.append('th');
     row.append('th')
       .attr('colspan', 5)
-      .text('Populations');
+      .text('Inventory');
     row.append('th')
       .attr('colspan', 6)
       .text('All Losses');
