@@ -1,4 +1,4 @@
-# Wolves
+# Wolves and the West
 Wolf-related visualizations. **A work in progress.**
 
 ## Data Sources
