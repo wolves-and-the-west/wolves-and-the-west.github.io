@@ -29,7 +29,7 @@ body {
   font-size: 0.6em;
 }
 
-.area {
+.state {
   fill-opacity: 0.75;
 }
 
@@ -52,11 +52,6 @@ body {
 
 .d3-tip td {
   padding: 0.25em;
-}
-
-.loss {
-  fill: firebrick;
-  fill-opacity: 0.5;
 }
 
 table td:nth-child(n+2) {

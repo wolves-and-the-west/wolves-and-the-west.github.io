@@ -19,8 +19,8 @@ Population = (function() {
   Population.legendSize = 150;
 
   Population.areaColorScale = d3.scaleOrdinal()
-    .domain(['total', 'cattle', 'sheep', 'confirmedDepredation', 'unconfirmedDepredation', 'loss'])
-    .range(['darkolivegreen', 'steelblue', 'silver', 'black', 'gray', 'red']);
+    .domain(['total', 'cattle', 'sheep', 'confirmedWolfDepredations', 'unconfirmedWolfDepredations', 'loss'])
+    .range(['olivedrab', 'steelblue', 'silver', 'black', 'gray', 'firebrick']);
   
   Population.tip = d3.tip()
     .attr('class', 'd3-tip')
@@ -101,12 +101,19 @@ Population = (function() {
     this.svg.call(Population.tip);
   }
 
-  Population.prototype.setSize = function(selection, areaType) {
+  Population.prototype.applyCommonAreaAttrs = function(selection, area) {
+    var areaKey = area + 'Area';
+    var fill = area == 'inventory' ?
+      d3.select(selection.node().parentNode).attr('class') :
+      area;
     selection
-      .attr('width', function(d) { return d.vizData[areaType] })
-      .attr('height', function(d) { return d.vizData[areaType] })
+      .attr('class', area)
+      .attr('width', function(d) { return d.vizData[areaKey] })
+      .attr('height', function(d) { return d.vizData[areaKey] })
+      .style('fill', Population.areaColorScale(fill));
   }
 
+  // type = total, cattle, sheep
   Population.prototype.buildArea = function(state, type, _this, isLegend=false) {
     var inventoryScale = isLegend ? _this.legendInventoryScale : _this.inventoryScale;
     var stateMax = isLegend ? Population.legendMax : Population.stateMax;
@@ -126,25 +133,23 @@ Population = (function() {
       })
       .enter()
       .append('g')
-      .attr('class', 'area');
+      .attr('class', type);
     area.selectAll('.inventory')
       .data(function(d) { return [d] })
       .enter()
       .append('rect')
       .attr('x', 0)
       .attr('y', function(d) { return stateMax - d.vizData.inventoryArea })
-      .style('fill', Population.areaColorScale(type))
       .on('mouseover', isLegend ? null : Population.tip.show)
       .on('mouseout', isLegend ? null : Population.tip.hide)
-      .call(_this.setSize, 'inventoryArea');
+      .call(_this.applyCommonAreaAttrs, 'inventory');
     area.selectAll('.loss')
       .data(function(d) { return [d] })
       .enter()
       .append('rect')
-      .attr('class', 'loss')
       .attr('x', function(d) { return d.vizData.inventoryArea - d.vizData.lossArea })
       .attr('y', function(d) { return stateMax - d.vizData.inventoryArea })
-      .call(_this.setSize, 'lossArea');
+      .call(_this.applyCommonAreaAttrs, 'loss');
     if (type == 'cattle' && stateData.unconfirmedDepredation.all.wolfDepredations != null) {
       area.selectAll('.unconfirmed-depredation')
         .data(function(d) { return [d] })
@@ -152,8 +157,7 @@ Population = (function() {
         .append('rect')
         .attr('x', function(d) { return d.vizData.inventoryArea - inventoryScale(d.data.unconfirmedDepredation.all.wolfDepredations) })
         .attr('y', function(d) { return stateMax - d.vizData.inventoryArea })
-        .style('fill', Population.areaColorScale('unconfirmedDepredation'))
-        .call(_this.setSize, 'unconfirmedWolfDepredationsArea');
+        .call(_this.applyCommonAreaAttrs, 'unconfirmedWolfDepredations');
     }
     area.selectAll('.confirmed-depredation')
       .data(function(d) { return [d] })
@@ -161,8 +165,7 @@ Population = (function() {
       .append('rect')
       .attr('x', function(d) { return d.vizData.inventoryArea - inventoryScale(d.data.confirmedDepredation[d.type]) })
       .attr('y', function(d) { return stateMax - inventoryScale(d.data.inventory[d.type]) })
-      .style('fill', Population.areaColorScale('confirmedDepredation'))
-      .call(_this.setSize, 'confirmedWolfDepredationsArea');
+      .call(_this.applyCommonAreaAttrs, 'confirmedWolfDepredations');
     if (isLegend) {
       area.selectAll('.label')
       .data(function(d) { return [d] })
@@ -179,11 +182,13 @@ Population = (function() {
   Population.prototype.buildStates = function() {
     var _this = this;
     var stateG = this.svg.append('g')
+      .attr('class', 'states')
       .attr('transform', 'translate(' + (Population.stateMargin * 2) + ',15)');
     var states = stateG.selectAll('.state')
       .data(this.data)
       .enter()
       .append('g')
+      .attr('class', 'state')
       .attr('transform', function(d, i) {
         return 'translate(' +
           ((i * Population.stateMax) + Population.legendWidth) + ',0)';
@@ -248,6 +253,7 @@ Population = (function() {
       .attr('y', 25)
       .text('State');
     var legendG = legend.append('g')
+      .attr('class', 'state')
       .attr('transform', 'translate(10,25)');
     var area = legendG.selectAll('.legend')
       .data(legendData)
@@ -268,7 +274,7 @@ Population = (function() {
     loss.append('rect')
       .attr('width', 10)
       .attr('height', 10)
-      .attr('class', 'loss');
+      .style('fill', Population.areaColorScale('loss'));
     loss.append('text')
       .attr('class', 'legend-label')
       .attr('x', 13)
@@ -279,7 +285,7 @@ Population = (function() {
     d.append('rect')
       .attr('width', 10)
       .attr('height', 10)
-      .style('fill', Population.areaColorScale('confirmedDepredation'));
+      .style('fill', Population.areaColorScale('confirmedWolfDepredations'));
     d.append('text')
       .attr('class', 'legend-label')
       .attr('x', 13)
@@ -290,7 +296,7 @@ Population = (function() {
     d.append('rect')
       .attr('width', 10)
       .attr('height', 10)
-      .style('fill', Population.areaColorScale('unconfirmedDepredation'));
+      .style('fill', Population.areaColorScale('unconfirmedWolfDepredations'));
     d.append('text')
       .attr('class', 'legend-label')
       .attr('x', 13)
