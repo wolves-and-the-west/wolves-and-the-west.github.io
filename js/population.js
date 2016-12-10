@@ -9,7 +9,7 @@ Population = (function() {
     left: 0
   };
   Population.height = 210;
-  Population.width = 880;
+  Population.width = 900;
 
   Population.stateMax = 125;
   Population.stateMargin = 10;
@@ -20,23 +20,24 @@ Population = (function() {
 
   Population.areaColorScale = d3.scaleOrdinal()
     .domain(['cattle', 'sheep', 'confirmedWolfDepredations', 'unconfirmedWolfDepredations', 'loss'])
-    .range(['steelblue', 'silver', 'firebrick', 'red', 'black']);
+    .range(['#7395b1', 'silver', 'firebrick', 'red', 'black']);
   
   Population.tip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([10, 0])
     .direction('s')
     .html(function(d) {
-      return '<h1 class="header">' + d.data.state + '</h1>' +
-        '<h2 class="header">' + titleCase(d.type) + '</h2>' +
+      return '<h3 class="header">' + d.data.state + ' ' +
+        titleCase(d.type) + '</h3>' +
         '<table><tbody>' +
         '<tr>' +
-          '<th>Population</th>' +
+          '<th>Inventory</th>' +
           '<td>' +
             formatNumber(d.data.inventory[d.type]) +
           '</td>' +
           '<td>' +
             formatPercent(d.data.inventory[d.type + 'Pct']) +
+            ' of cattle and sheep' +
           '</td>' +
         '</tr>' +
         '<tr>' +
@@ -46,6 +47,7 @@ Population = (function() {
           '</td>' +
           '<td>' +
             formatPercent(d.data.loss[d.type + 'Pct']) +
+            ' of all ' + d.type + 
           '</td>' +
         '</tr>' +
         '<tr>' +

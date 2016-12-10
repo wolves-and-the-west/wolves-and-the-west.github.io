@@ -1,7 +1,6 @@
 .d3-tip {
   line-height: 1;
-  padding: 6px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 4px;
+  padding: 1em;
+  background: steelblue;
+  border-radius: 0.5em;
 }

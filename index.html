@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.4-rc2/foundation.min.css">
     <link rel="stylesheet" type="text/css" href="css/libs/d3-tip.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="https://cdn.jsdelivr.net/foundation/6.2.4-rc2/foundation.min.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/lodash/4.13.1/lodash.min.js"></script>
     <script src="js/libs/d3-tip.js"></script>
@@ -13,46 +15,51 @@
     <script src="js/index.js"></script>
   </head>
   <body onload="load()">
-    <section class="alert">
-      <strong>Note:</strong> This is a work in progress.
-    </section>
-    <section id="container">
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+          <li class="menu-text">
+            Wolves and the West
+          </li>
+        </ul>
+      </div>
+      <div class="top-bar-right">
+        <span class="warning label">A work in progress</span>
+      </div>
+    </div>
+
+    <section id="body" class="expanded row column">
+      <h3>
+        2011 Livestock Inventory<sup>1</sup>,
+        Losses<sup>2</sup>,
+        Confirmed Wolf Depredations on Cattle and Sheep<sup>3</sup>,
+        and Unconfirmed Wolf Depredations on Cattle<sup>4</sup></h3>
+      <section id="population"></section>
       <section>
-        <h1 class="section-header">
-          2011 Livestock Inventory<sup>1</sup>,
-          Losses<sup>2</sup>,
-          Confirmed Wolf Depredations on Cattle and Sheep<sup>3</sup>,
-          and Unconfirmed Wolf Depredations on Cattle<sup>4</sup></h1>
-        <hr>
-        <section id="population"></section>
-        <br>
-        <hr>
-        <section>
-          <h1 class="sources-header">Sources</h1>
-          <ol>
-            <li>
-              <a href="https://quickstats.nass.usda.gov/results/AB0B9BFC-7A94-317C-8F1B-6DCAB7E59EFF" target="_blank">USDA/NASS QuickStats Ad-hoc Query Tool</a>
-            </li>
-            <li>
-              <a href="https://quickstats.nass.usda.gov/results/56B0DEBE-BBE8-334F-A1B8-8F150E749934" target="_blank">USDA/NASS QuickStats Ad-hoc Query Tool</a>
-            </li>
-            <li>
-              <a href="https://www.fws.gov/mountain-prairie/species/mammals/wolf/annualrpt11/FINAL_2011_Idaho_wolf_monitoring_progress_report.pdf" target="_blank">2011 Idaho Wolf Monitoring Progress Report</a>,<br>
+        <h5>Sources</h5>
+        <ol>
+          <li>
+            <a href="https://quickstats.nass.usda.gov/results/AB0B9BFC-7A94-317C-8F1B-6DCAB7E59EFF" target="_blank">USDA/NASS QuickStats Ad-hoc Query Tool</a>
+          </li>
+          <li>
+            <a href="https://quickstats.nass.usda.gov/results/56B0DEBE-BBE8-334F-A1B8-8F150E749934" target="_blank">USDA/NASS QuickStats Ad-hoc Query Tool</a>
+          </li>
+          <li>
+            <a href="https://www.fws.gov/mountain-prairie/species/mammals/wolf/annualrpt11/FINAL_2011_Idaho_wolf_monitoring_progress_report.pdf" target="_blank">2011 Idaho Wolf Monitoring Progress Report</a>,<br>
 
-              <a href="http://www.fws.gov/mountain-prairie/species/mammals/wolf/annualrpt11/2011_REVISED-FINAL_MT_Wolf_Annual_Report.pdf" target="_blank">Montana Gray Wolf Conservation and Management 2011 Annual Report</a>,<br>
+            <a href="http://www.fws.gov/mountain-prairie/species/mammals/wolf/annualrpt11/2011_REVISED-FINAL_MT_Wolf_Annual_Report.pdf" target="_blank">Montana Gray Wolf Conservation and Management 2011 Annual Report</a>,<br>
 
-              <a href="http://www.fws.gov/mountain-prairie/species/mammals/wolf/annualrpt11/FINAL_2011_OR_Wolf_Conservation_and_Management_Plan-Annual_Report.pdf" target="_blank">Oregon Wolf Conservation and Management Plan 2011 Annual Report</a>,<br>
+            <a href="http://www.fws.gov/mountain-prairie/species/mammals/wolf/annualrpt11/FINAL_2011_OR_Wolf_Conservation_and_Management_Plan-Annual_Report.pdf" target="_blank">Oregon Wolf Conservation and Management Plan 2011 Annual Report</a>,<br>
 
-              <a href="https://www.fws.gov/mountain-prairie/es/species/mammals/wolf/annualrpt11/FINAL_030112_WA-AR_2011.pdf" target="_blank">Washington Gray Wolf Conservation and Management 2011 Annual Report</a>,<br>
+            <a href="https://www.fws.gov/mountain-prairie/es/species/mammals/wolf/annualrpt11/FINAL_030112_WA-AR_2011.pdf" target="_blank">Washington Gray Wolf Conservation and Management 2011 Annual Report</a>,<br>
 
-              <a href="https://www.fws.gov/mountain-prairie/es/species/mammals/wolf/annualrpt11/030612_FINAL_2011_WY_Annual_Report.pdf" target="_blank">Wyoming Wolf Recovery 2011 Annual Report</a>
-            </li>
-            <li>
-              <a href="https://usda.mannlib.cornell.edu/MannUsda/viewDocumentInfo.do?documentID=1625" target="_blank">Cattle Death Loss</a>
-            </li>
-          </ol>
-        </section>
+            <a href="https://www.fws.gov/mountain-prairie/es/species/mammals/wolf/annualrpt11/030612_FINAL_2011_WY_Annual_Report.pdf" target="_blank">Wyoming Wolf Recovery 2011 Annual Report</a>
+          </li>
+          <li>
+            <a href="https://usda.mannlib.cornell.edu/MannUsda/viewDocumentInfo.do?documentID=1625" target="_blank">Cattle Death Loss</a>
+          </li>
+        </ol>
       </section>
-    </section>
+    </div>
   </body>
 <html>
