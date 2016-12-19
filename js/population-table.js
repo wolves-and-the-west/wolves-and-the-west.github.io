@@ -8,7 +8,7 @@ PopulationTable = (function() {
   }
 
   PopulationTable.prototype.buildTable = function() {
-    var table = d3.select('#population')
+    var table = d3.select('#population-table')
       .append('table')
       .attr('class', 'population-table');
     var thead = table.append('thead');

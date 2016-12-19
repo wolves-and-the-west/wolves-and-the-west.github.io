@@ -10,6 +10,15 @@ var heredoc = function(f) {
   return f.toString( ).match(/\/\*\s*([\s\S]*?)\s*\*\//m)[1];
 }
 
+var parseCSV = function(csv) {
+  var csv = d3.csvParse(csv);
+  csv.forEach(function(d) {
+    d.Year = +d.Year;
+    d.Value = +d.Value.replace(/\D+/g, '');
+  });
+  return csv;
+}
+
 var prepCsvData = function(csv) {
   var grouped = d3.nest()
     .key(function(d) { return d.State })

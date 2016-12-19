@@ -80,3 +80,64 @@ th:empty {
 .pct {
   color: steelblue;
 }
+
+.line {
+  fill: none;
+  stroke-width: 1px;
+}
+
+.line-graph-state-label {
+  font-size: 0.5em;
+}
+
+.axis text, .axis path, .axis line {
+  opacity: 0.3;
+}
+
+.wolf-reintro-annotation line {
+  stroke: black;
+  stroke-width: 1px;
+}
+
+.wolf-reintro-annotation text {
+  font-size: 0.5em;
+}
+
+.wolf-reintro-tick text,
+.wolf-reintro-tick line {
+  opacity: 1;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.hover-line line {
+  opacity: 0.3;
+  stroke: black;
+  stroke-width: 1px;
+  stroke-dasharray: 2 2;
+}
+
+.line-tooltip {
+  position: absolute;
+  background: #ddd;
+  pointer-events: none;
+  opacity: 0.95;
+  font-size: 0.75em;
+  padding: 0.5em;
+}
+
+.line-tooltip-table {
+  margin: 0;
+}
+
+.line-tooltip-table th,
+.line-tooltip-table td {
+  padding: 0.25em 0.5em;
+}
+
+.line-tooltip-table th {
+  text-align: left;
+}
