@@ -100,7 +100,7 @@ th:empty {
 }
 
 .wolf-reintro-annotation text {
-  font-size: 0.5em;
+  font-size: 0.75em;
 }
 
 .wolf-reintro-tick text,
@@ -140,4 +140,10 @@ th:empty {
 
 .line-tooltip-table th {
   text-align: left;
+}
+
+.logo {
+  height: 1.25em;
+  position: relative;
+  top: -0.1em;
 }

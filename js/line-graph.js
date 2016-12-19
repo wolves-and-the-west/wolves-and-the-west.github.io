@@ -258,7 +258,7 @@ LineGraph = (function() {
       .attr('y2', this.y(this.y.domain()[1]));
     annotation.append('text')
       .attr('x', this.x(1995))
-      .attr('y', -5)
+      .attr('y', -2)
       .attr('text-anchor', 'middle')
       .text('Wolves reintroduced to Yellowstone');
     this.svg.selectAll('.tick').filter(function(d) {
