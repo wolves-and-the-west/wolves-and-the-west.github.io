@@ -35,6 +35,8 @@ LineGraph = (function() {
     </table>
   */}));
 
+  LineGraph.reintroYears = [1995, 1996];
+
   function LineGraph() {
     this.prepData();
     this.buildScales();
@@ -208,7 +210,7 @@ LineGraph = (function() {
     this.xTicks = this.years.filter(function(d) { return d % 5 == 0 });
     this.svg.select('.x.axis').selectAll('.tick')
       .style('opacity', function(d) {
-        return self.xTicks.indexOf(d) != -1 ? 1 : 0;
+        return self.xTicks.indexOf(d) != -1 || LineGraph.reintroYears.indexOf(d) != -1 ? 1 : 0;
       })
 
     this.yAxis = d3.axisLeft(this.y)
@@ -250,20 +252,23 @@ LineGraph = (function() {
   }
 
   LineGraph.prototype.annotate = function() {
+    var self = this;
     var annotation = this.svg.append('g').attr('class', 'wolf-reintro-annotation');
-    annotation.append('line')
-      .attr('x1', this.x(1995) + 0.5)
-      .attr('x2', this.x(1995) + 0.5)
-      .attr('y1', this.y(this.y.domain()[0]))
-      .attr('y2', this.y(this.y.domain()[1]));
+    LineGraph.reintroYears.forEach(function(year) {
+      annotation.append('line')
+        .attr('x1', self.x(year) + 0.5)
+        .attr('x2', self.x(year) + 0.5)
+        .attr('y1', self.y(self.y.domain()[0]))
+        .attr('y2', self.y(self.y.domain()[1]));
+      self.svg.selectAll('.tick').filter(function(d) {
+        return d == year;
+      }).attr('class', 'wolf-reintro-tick');
+    });
     annotation.append('text')
-      .attr('x', this.x(1995))
+      .attr('x', self.x(1995))
       .attr('y', -2)
       .attr('text-anchor', 'middle')
       .text('Wolves reintroduced to Yellowstone');
-    this.svg.selectAll('.tick').filter(function(d) {
-      return d == 1995;
-    }).attr('class', 'wolf-reintro-tick');
   }
 
   return LineGraph;
