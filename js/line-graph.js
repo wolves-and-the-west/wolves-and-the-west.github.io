@@ -6,7 +6,7 @@ LineGraph = (function() {
     top: 20,
     bottom: 20,
     right: 100,
-    left: 35
+    left: 45
   };
   LineGraph.height = 175 - LineGraph.margin.top - LineGraph.margin.bottom;
   LineGraph.width = 1000 - LineGraph.margin.left - LineGraph.margin.right;
@@ -87,9 +87,6 @@ LineGraph = (function() {
     var states = d3.set(this.lossData.map(function(d) { return d.State }))
       .values()
       .sort();
-    var extentLossPercentage = d3.extent(this.percentLossData, function(d) {
-      return d.percent;
-    });
 
     this.stateColor = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -98,7 +95,7 @@ LineGraph = (function() {
       .range([0, LineGraph.width]);
 
     this.y = d3.scaleLinear()
-      .domain(extentLossPercentage)
+      .domain([0, 0.1])
       .range([LineGraph.height, 0])
       .nice();
 
