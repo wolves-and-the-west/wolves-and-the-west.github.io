@@ -16,7 +16,6 @@ LineGraph = (function() {
     <table class="line-tooltip-table">
       <thead>
         <tr>
-          <th>State</th>
           <th>Inventory</th>
           <th>Loss</th>
           <th>Percent Loss</th>
@@ -24,8 +23,7 @@ LineGraph = (function() {
       </thead>
       <tbody>
         <% d.forEach(function(state) { %>
-          <tr style="color: <%= self.stateColor(state.state) %>">
-            <th><%= titleCase(state.state) %></th>
+          <tr>
             <td><%= formatNumber(state.inventory) %></td>
             <td><%= formatNumber(state.loss) %></td>
             <td><%= d3.format('.2%')(state.percent) %></td>
