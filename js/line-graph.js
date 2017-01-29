@@ -221,7 +221,7 @@ LineGraph = (function() {
         .style('text-anchor', 'end')
         .attr("transform", "rotate(-45 -2 9)");
 
-    this.xTicks = this.years.filter(function(d) { return d % 5 == 0 });
+    this.xTicks = this.years.filter(function(d, i) { return i == 0 || d % 5 == 0 });
     this.svg.select('.x.axis').selectAll('.tick')
       .style('opacity', function(d) {
         return self.xTicks.indexOf(d) != -1 || LineGraph.reintroYears.indexOf(d) != -1 ? 1 : 0;
