@@ -44,6 +44,7 @@ LineGraph = (function() {
     this.buildAxes();
     this.plotLines();
     this.annotate();
+    this.addOverlay();
   }
 
   LineGraph.prototype.prepData = function() {
@@ -196,6 +197,10 @@ LineGraph = (function() {
       .attr('y1', this.y(this.y.domain()[0]))
       .attr('y2', this.y(this.y.domain()[1]));
 
+  }
+
+  LineGraph.prototype.addOverlay = function() {
+    var self = this;
     this.svg.append("rect")
       .attr("class", "overlay")
       .attr("width", LineGraph.width)
