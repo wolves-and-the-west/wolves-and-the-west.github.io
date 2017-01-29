@@ -159,3 +159,7 @@ th:empty {
   fill: black;
   fill-opacity: 0.1;
 }
+
+.section-header {
+  font-size: 2em;
+}
