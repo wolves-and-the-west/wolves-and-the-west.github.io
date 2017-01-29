@@ -155,8 +155,8 @@ LineGraph = (function() {
         return [year].concat(self.xTicks).indexOf(d) != -1 ? 1 : 0;
       });
 
-    var tooltipX = d3.event.pageX > LineGraph.width ? 
-      d3.event.pageX - 400 : d3.event.pageX;
+    var tooltipX = d3.event.pageX > $(document).width() - 300 ? 
+      d3.event.pageX - 300 : d3.event.pageX;
     this.tooltip
       .style("left", (tooltipX) + 20 + "px")
       .style("top", (d3.event.pageY) + "px")
