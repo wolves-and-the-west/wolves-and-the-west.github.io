@@ -175,7 +175,7 @@ LineGraph = (function() {
     var container = d3.select('#line-graphs')
       .append('div')
       .attr('class', 'large-4 columns');
-    container.append('h4').text(titleCase(self.state));
+    container.append('h5').text(titleCase(self.state));
     this.svg = container.append('svg')
       .attr('viewBox', [
         0,
