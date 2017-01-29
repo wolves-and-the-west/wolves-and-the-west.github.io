@@ -43,7 +43,6 @@ LineGraph = (function() {
     this.buildSVG();
     this.buildAxes();
     this.plotLines();
-    this.plotExtents();
     this.annotate();
   }
 
@@ -92,9 +91,6 @@ LineGraph = (function() {
     var states = d3.set(this.lossData.map(function(d) { return d.State }))
       .values()
       .sort();
-    this.extentLossPercentage = d3.extent(this.percentLossData, function(d) {    
-      return d.percent;   
-    });
 
     this.stateColor = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -113,9 +109,10 @@ LineGraph = (function() {
 
     this.bisectYear = d3.bisector(function(d) { return d.year; }).left;
 
-    this.line = d3.line()
+    this.area = d3.area()
       .x(function(d) { return self.x(d.year); })
-      .y(function(d) { return self.y(d.percent); })
+      .y0(this.y(0))
+      .y1(function(d) { return self.y(d.percent); })
       .curve(d3.curveMonotoneX);
   }
 
@@ -233,16 +230,6 @@ LineGraph = (function() {
       .call(this.yAxis);
   }
 
-  LineGraph.prototype.plotExtents = function() {
-    var self = this;
-    self.svg.append('rect')
-      .attr('class', 'extent-rect')
-      .attr('x', 0)
-      .attr('y', self.y(self.extentLossPercentage[1]))
-      .attr('width', LineGraph.width)
-      .attr('height', self.y(self.extentLossPercentage[0]) - self.y(self.extentLossPercentage[1]));
-  }
-
   LineGraph.prototype.plotLines = function() {
     var self = this;
     var lastLabelY = 0;
@@ -254,8 +241,8 @@ LineGraph = (function() {
       .forEach(function(state) {
         self.svg.append('path')
           .data([state.values])
-          .attr('class', 'line')
-          .attr('d', self.line)
+          .attr('class', 'area')
+          .attr('d', self.area)
           .style('stroke', self.stateColor(state.key));
       });
   }

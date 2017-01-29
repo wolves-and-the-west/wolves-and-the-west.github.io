@@ -6,10 +6,6 @@ body {
   margin-top: 0.5em;
 }
 
-.site-header {
-  margin-bottom: 1em;
-}
-
 .top-bar .warning {
   display: inline-block;
   margin-top: 0.5em;
@@ -85,9 +81,9 @@ th:empty {
   color: steelblue;
 }
 
-.line {
-  fill: none;
-  stroke-width: 1px;
+.area {
+  fill: steelblue;
+  fill-opacity: 0.5;
 }
 
 .line-graph-state-label {
@@ -102,7 +98,7 @@ th:empty {
   stroke: black;
   stroke-width: 1px;
   stroke-dasharray: 2;
-  stroke-opacity: 0.3;
+  stroke-opacity: 0.5;
 }
 
 .wolf-reintro-annotation text {
@@ -162,4 +158,8 @@ th:empty {
 
 .section-header {
   font-size: 2em;
+}
+
+.page-section {
+  margin-top: 4em;
 }
