@@ -4,7 +4,7 @@ LineGraph = (function() {
 
   LineGraph.margin = {
     top: 20,
-    bottom: 20,
+    bottom: 30,
     right: 15,
     left: 25
   };
@@ -216,11 +216,15 @@ LineGraph = (function() {
     this.svg.append('g')
       .attr('class', 'x axis')
       .attr('transform', 'translate(0,' + LineGraph.height + ')')
-      .call(this.xAxis);
+      .call(this.xAxis)
+        .selectAll('text')
+        .style('text-anchor', 'end')
+        .attr("transform", "rotate(-45 -2 9)");
+
     this.xTicks = this.years.filter(function(d) { return d % 5 == 0 });
     this.svg.select('.x.axis').selectAll('.tick')
       .style('opacity', function(d) {
-        return self.xTicks.indexOf(d) != -1 || LineGraph.reintroYears[0] == d ? 1 : 0;
+        return self.xTicks.indexOf(d) != -1 || LineGraph.reintroYears.indexOf(d) != -1 ? 1 : 0;
       })
 
     this.yAxis = d3.axisLeft(this.y)
