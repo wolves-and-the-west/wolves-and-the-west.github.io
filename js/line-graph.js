@@ -5,11 +5,11 @@ LineGraph = (function() {
   LineGraph.margin = {
     top: 20,
     bottom: 20,
-    right: 100,
-    left: 45
+    right: 15,
+    left: 25
   };
-  LineGraph.height = 175 - LineGraph.margin.top - LineGraph.margin.bottom;
-  LineGraph.width = 1000 - LineGraph.margin.left - LineGraph.margin.right;
+  LineGraph.height = 125 - LineGraph.margin.top - LineGraph.margin.bottom;
+  LineGraph.width = 400 - LineGraph.margin.left - LineGraph.margin.right;
   
   LineGraph.yLabelOffset = 8;
   LineGraph.tooltipTemplate = _.template(heredoc(function(){/*
@@ -37,19 +37,26 @@ LineGraph = (function() {
 
   LineGraph.reintroYears = [1995, 1996];
 
-  function LineGraph() {
+  function LineGraph(state, annotate=true) {
+    this.state = state.toUpperCase();
+    this.annotateText = annotate;
     this.prepData();
     this.buildScales();
     this.buildSVG();
     this.buildAxes();
     this.plotLines();
+    this.plotExtents();
     this.annotate();
   }
 
   LineGraph.prototype.prepData = function() {
     var self = this;
-    this.lossData = parseCSV(lossesDump);
-    this.inventoryData = parseCSV(inventoryDump);
+    this.lossData = parseCSV(lossesDump).filter(function(d) {
+      return d.State == self.state;
+    });
+    this.inventoryData = parseCSV(inventoryDump).filter(function(d) {
+      return d.State == self.state;
+    });
     this.percentLossData = [];
 
     this.lossData.forEach(function(l) {
@@ -87,6 +94,9 @@ LineGraph = (function() {
     var states = d3.set(this.lossData.map(function(d) { return d.State }))
       .values()
       .sort();
+    this.extentLossPercentage = d3.extent(this.percentLossData, function(d) {    
+      return d.percent;   
+    });
 
     this.stateColor = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -95,7 +105,7 @@ LineGraph = (function() {
       .range([0, LineGraph.width]);
 
     this.y = d3.scaleLinear()
-      .domain([0, 0.1])
+      .domain([0, 0.05])
       .range([LineGraph.height, 0])
       .nice();
 
@@ -166,8 +176,11 @@ LineGraph = (function() {
 
   LineGraph.prototype.buildSVG = function() {
     var self = this;
-    this.svg = d3.select('#line-graph')
-      .append('svg')
+    var container = d3.select('#line-graphs')
+      .append('div')
+      .attr('class', 'large-4 columns');
+    container.append('h4').text(titleCase(self.state));
+    this.svg = container.append('svg')
       .attr('viewBox', [
         0,
         0,
@@ -207,14 +220,25 @@ LineGraph = (function() {
     this.xTicks = this.years.filter(function(d) { return d % 5 == 0 });
     this.svg.select('.x.axis').selectAll('.tick')
       .style('opacity', function(d) {
-        return self.xTicks.indexOf(d) != -1 || LineGraph.reintroYears.indexOf(d) != -1 ? 1 : 0;
+        return self.xTicks.indexOf(d) != -1 || LineGraph.reintroYears[0] == d ? 1 : 0;
       })
 
     this.yAxis = d3.axisLeft(this.y)
-      .tickFormat(d3.format('.1%'));
+      .tickFormat(d3.format('.0%'))
+      .ticks(3);
     this.svg.append('g')
       .attr('class', 'y axis')
       .call(this.yAxis);
+  }
+
+  LineGraph.prototype.plotExtents = function() {
+    var self = this;
+    self.svg.append('rect')
+      .attr('class', 'extent-rect')
+      .attr('x', 0)
+      .attr('y', self.y(self.extentLossPercentage[1]))
+      .attr('width', LineGraph.width)
+      .attr('height', self.y(self.extentLossPercentage[0]) - self.y(self.extentLossPercentage[1]));
   }
 
   LineGraph.prototype.plotLines = function() {
@@ -231,20 +255,6 @@ LineGraph = (function() {
           .attr('class', 'line')
           .attr('d', self.line)
           .style('stroke', self.stateColor(state.key));
-        self.svg.append("text")
-          .attr('class', 'line-graph-state-label')
-          .attr("transform", function(d) {
-            var y = self.y(state.values[0].percent);
-            if (y - LineGraph.yLabelOffset <= lastLabelY) { 
-              y = lastLabelY + LineGraph.yLabelOffset;
-            }
-            lastLabelY = y;
-            return "translate(" + (LineGraph.width + 5) + "," + y + ")"
-          })
-          .attr("dy", ".35em")
-          .attr("text-anchor", "start")
-          .style('fill', self.stateColor(state.key))
-          .text(titleCase(state.key));
       });
   }
 
@@ -261,11 +271,13 @@ LineGraph = (function() {
         return d == year;
       }).attr('class', 'wolf-reintro-tick');
     });
-    annotation.append('text')
-      .attr('x', self.x(1995))
-      .attr('y', -2)
-      .attr('text-anchor', 'middle')
-      .text('Wolves reintroduced to Yellowstone');
+    if (this.annotateText) {
+      annotation.append('text')
+        .attr('x', self.x(1996))
+        .attr('y', -2)
+        .attr('text-anchor', 'middle')
+        .text('Wolves reintroduced to Yellowstone');
+    }
   }
 
   return LineGraph;

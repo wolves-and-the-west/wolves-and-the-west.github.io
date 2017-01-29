@@ -97,6 +97,8 @@ th:empty {
 .wolf-reintro-annotation line {
   stroke: black;
   stroke-width: 1px;
+  stroke-dasharray: 2;
+  stroke-opacity: 0.3;
 }
 
 .wolf-reintro-annotation text {
@@ -105,7 +107,8 @@ th:empty {
 
 .wolf-reintro-tick text,
 .wolf-reintro-tick line {
-  opacity: 1;
+  opacity: 0.5;
+  stroke-dasharray: 2;
 }
 
 .overlay {
@@ -146,4 +149,9 @@ th:empty {
   height: 1.25em;
   position: relative;
   top: -0.1em;
+}
+
+.extent-rect {
+  fill: black;
+  fill-opacity: 0.1;
 }
