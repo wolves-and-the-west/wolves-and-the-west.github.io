@@ -6,6 +6,10 @@ body {
   margin-top: 0.5em;
 }
 
+.site-header {
+  margin-bottom: 1em;
+}
+
 .top-bar .warning {
   display: inline-block;
   margin-top: 0.5em;
