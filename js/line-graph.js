@@ -3,7 +3,7 @@ var LineGraph;
 LineGraph = (function() {
 
   LineGraph.margin = {
-    top: 20,
+    top: 10,
     bottom: 30,
     right: 15,
     left: 25
