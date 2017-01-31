@@ -157,10 +157,20 @@ th:empty {
 }
 
 .section-header {
-  font-size: 2em;
+  font-size: 1.75em;
   font-weight: bold;
 }
 
 .page-section {
-  margin-top: 4em;
+  margin-top: 2em;
+}
+
+.sources {
+  opacity: 0.5;
+  margin-top: 1em;
+  font-size: 0.75em;
+}
+
+.sources p {
+  margin-bottom: 0;
 }
