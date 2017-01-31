@@ -81,8 +81,8 @@ th:empty {
   color: steelblue;
 }
 
-.area {
-  fill: steelblue;
+.loss-area {
+  fill: darkred;
   fill-opacity: 0.5;
 }
 

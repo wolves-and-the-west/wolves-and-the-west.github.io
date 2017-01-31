@@ -103,8 +103,6 @@ LineGraph = (function() {
       .values()
       .sort();
 
-    this.stateColor = d3.scaleOrdinal(d3.schemeCategory10);
-
     this.x = d3.scalePoint()
       .domain(this.years)
       .range([0, LineGraph.width]);
@@ -256,9 +254,8 @@ LineGraph = (function() {
       .forEach(function(state) {
         self.svg.append('path')
           .data([state.values])
-          .attr('class', 'area')
-          .attr('d', self.area)
-          .style('stroke', self.stateColor(state.key));
+          .attr('class', 'loss-area')
+          .attr('d', self.area);
       });
   }
 
