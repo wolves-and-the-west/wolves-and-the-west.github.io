@@ -158,6 +158,7 @@ th:empty {
 
 .section-header {
   font-size: 2em;
+  font-weight: bold;
 }
 
 .page-section {
