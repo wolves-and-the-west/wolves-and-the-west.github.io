@@ -1,10 +1,9 @@
 body {
   background-color: #f5f5f5;
-  margin: 1em;
 }
 
 #body {
-  margin-top: 0.5em;
+  margin: 2em;
 }
 
 .top-bar .warning {
