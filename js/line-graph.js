@@ -108,7 +108,7 @@ LineGraph = (function() {
       .range([0, LineGraph.width]);
 
     this.y = d3.scaleLinear()
-      .domain([0, 0.05])
+      .domain([0, 0.06])
       .range([LineGraph.height, 0])
       .nice();
 
