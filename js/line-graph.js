@@ -13,7 +13,7 @@ var LineGraph;
 LineGraph = (function() {
 
   LineGraph.margin = {
-    top: 10,
+    top: 15,
     bottom: 30,
     right: 15,
     left: 25
@@ -274,10 +274,10 @@ LineGraph = (function() {
     });
     if (this.annotateText) {
       annotation.append('text')
-        .attr('x', self.x(1996))
-        .attr('y', -2)
+        .attr('x', self.x(1998))
+        .attr('y', 0)
         .attr('text-anchor', 'middle')
-        .text('Wolves reintroduced to Yellowstone');
+        .text('Wolves reintroduced to Yellowstone & Idaho');
     }
   }
 
