@@ -9,7 +9,7 @@ LossGraph = (function() {
     top: 15,
     bottom: 30,
     right: 15,
-    left: 25
+    left: 30
   };
 
   LossGraph.height = LossGraph.baseHeight
