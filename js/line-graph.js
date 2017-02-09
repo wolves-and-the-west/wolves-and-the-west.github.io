@@ -54,9 +54,34 @@ LineGraph = (function() {
 
   LineGraph.prototype.prepData = function() {
     var self = this;
-    this.lossData = parseCSV(lossesDump).filter(function(d) {
-      return d.State == self.state;
+
+    var lossData = parseCSV(lossesDump);
+
+    this.cattleLossData = lossData.filter(function(d) {
+      return d.State == self.state &&
+        d["Data Item"] == "CATTLE, (EXCL CALVES) - LOSS, DEATH, MEASURED IN HEAD";
     });
+
+    this.calvesLossData = lossData.filter(function(d) {
+      return d.State == self.state &&
+        d["Data Item"] == "CATTLE, CALVES - LOSS, DEATH, MEASURED IN HEAD";
+    });
+
+    this.lossData = [];
+
+    this.cattleLossData.forEach(function(cattle) {
+      var calves = self.calvesLossData.filter(function(calf) {
+        return cattle.State == calf.State &&
+          cattle.Year == calf.Year;
+      })[0];
+      var all = _.cloneDeep(cattle);
+      all.Value += calves.Value;
+      all["Data Item"] = '__ALL__';
+      self.lossData.push(all);
+    });
+
+    console.log(this.lossData);
+
     this.inventoryData = parseCSV(inventoryDump).filter(function(d) {
       return d.State == self.state;
     });
