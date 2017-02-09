@@ -12,12 +12,15 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.4/foundation.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/numbro/1.9.3/numbro.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.9.1/math.min.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/lodash/4.13.1/lodash.min.js"></script>
     <script src="js/libs/d3-tip.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/data.js"></script>
     <script src="js/line-graph.js"></script>
+    <script src="js/pie-graph.js"></script>
+    <script src="js/loss-graph.js"></script>
     <script src="js/resources.js"></script>
     <script src="js/index.js"></script>
   </head>
@@ -35,9 +38,18 @@
       </h1>
 
       <section class="page-section">
-        <h3 class="section-header">Percentage of Cattle Loss from All Causes</strong></h3>
+        <h3 class="section-header">Cattle Losses</strong></h3>
         <div class="expanded row">
-          <section id="line-graphs"></section>
+          <div class="large-12 columns">
+            <section class="loss-legend">
+              <span class="all-loss-label">&block; All Causes</span>
+              &emsp;&emsp;
+              <span class="predator-loss-label">&block; Predator</span>
+              &emsp;&emsp;
+              <span class="non-predator-loss-label">&block; Non-Predator</span>
+            </section>
+          </div>
+          <section id="loss-graphs"></section>
         </div>
         <div class="expanded row">
           <div class="large-12 columns">

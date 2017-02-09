@@ -12,14 +12,8 @@ var LineGraph;
 
 LineGraph = (function() {
 
-  LineGraph.margin = {
-    top: 15,
-    bottom: 30,
-    right: 15,
-    left: 25
-  };
-  LineGraph.height = 125 - LineGraph.margin.top - LineGraph.margin.bottom;
-  LineGraph.width = 400 - LineGraph.margin.left - LineGraph.margin.right;
+  LineGraph.height = 125;
+  LineGraph.width = 400;
   
   LineGraph.yLabelOffset = 8;
   LineGraph.tooltipTemplate = _.template(heredoc(function(){/*
@@ -45,7 +39,8 @@ LineGraph = (function() {
 
   LineGraph.reintroYears = [1995, 1996];
 
-  function LineGraph(state, annotate=true) {
+  function LineGraph(lossGraph, container, state, annotate=true) {
+    this.svg = container;
     this.state = state.toUpperCase();
     this.annotateText = annotate;
     this.prepData();
@@ -184,16 +179,6 @@ LineGraph = (function() {
       .append('div')
       .attr('class', 'large-4 medium-6 columns');
     container.append('h5').text(titleCase(self.state));
-    this.svg = container.append('svg')
-      .attr('viewBox', [
-        0,
-        0,
-        LineGraph.width + LineGraph.margin.left + LineGraph.margin.right,
-        LineGraph.height + LineGraph.margin.top + LineGraph.margin.bottom
-      ].join(' '))
-      .append('g')
-      .attr('transform', 'translate(' + LineGraph.margin.left + ',' + LineGraph.margin.top + ')');
-
 
     this.hoverLine = this.svg.append("g")
       .attr('class', 'hover-line')
@@ -227,7 +212,7 @@ LineGraph = (function() {
       .call(this.xAxis)
         .selectAll('text')
         .style('text-anchor', 'end')
-        .attr("transform", "rotate(-45 -2 9)");
+        .attr("transform", "rotate(-45 -3 0)");
 
     this.xTicks = this.years.filter(function(d, i) { return i == 0 || d % 5 == 0 });
     this.svg.select('.x.axis').selectAll('.tick')

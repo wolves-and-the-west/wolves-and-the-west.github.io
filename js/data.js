@@ -566,34 +566,222 @@ var lossesData = prepCsvData(lossesDump);
 
 Unconfirmed Depredations
 ========================
-Source: https://usda.mannlib.cornell.edu/MannUsda/viewDocumentInfo.do?documentID=1625
+Sources:
+  https://usda.mannlib.cornell.edu/MannUsda/viewDocumentInfo.do?documentID=1427
+  https://usda.mannlib.cornell.edu/MannUsda/viewDocumentInfo.do?documentID=1625
 Notes:
-  This data is not preferred since wolf depredations are not confirmed.
+  This data is not preferred since wolf depredations (if present) are not confirmed.
   However, it is included to round out the picture. After all, not all
   killed livestock may be found.
 
+  2000 lacks state percentages.
+
 */
-var cattleAndCalvesLossesDump = heredoc(function() { /*
-Colorado ...........:     55,000         55,000           800          4,300          54,200         50,700
-Idaho ..............:     42,000         51,000         1,900          4,200          40,100         46,800
-Montana ............:     23,000         57,000         1,000          4,200          22,000         52,800
-Oregon .............:     20,000         35,000           600          3,200          19,400         31,800
-Washington .........:     20,000         19,000           200          1,500          19,800         17,500
-Wyoming ............:     11,000         30,000           400          3,500          10,600         26,500
-*/});
-var cattlePercentPredatorLossesDump = heredoc(function () { /*
-Colorado ...........:   17.7         4.0         0.8         -         -      21.4       47.6          8.5
-Idaho ..............:    3.9         1.5         0.5         -      30.0       0.4        3.2         60.5
-Montana ............:    4.8           -           -         -      44.0       6.5        3.7         41.0
-Oregon .............:   63.6        13.3           -         -         -       7.3          -         15.8
-Washington .........:   80.7         7.5           -         -         -         -          -         11.8
-Wyoming ............:   19.8        11.9         1.0         -      18.6      15.7          -         33.0
-*/});
-var calfPercentPredatorLossesDump = heredoc(function () { /*
-Colorado ...........:   82.2         6.3         1.0         -         -       7.8        0.3         2.4
-Idaho ..............:   26.9         4.3         3.3       0.3      47.4       0.7        3.0        14.1
-Montana ............:   46.9         5.2           -         -      20.3       2.3        1.6        23.7
-Oregon .............:   70.0         8.7         0.5         -       7.7       1.0        8.7         3.4
-Washington .........:   77.3         3.4           -         -       2.4       3.3          -        13.6
-Wyoming ............:   46.5        11.5         1.7         -      14.6       7.7        3.3        14.7
-*/});
+
+var calcPredatorLossPercent = function(scope) {
+  return math.eval(
+    '(cattlePredator + calvesPredator) / (cattleTotal + calvesTotal)',
+    scope
+  );
+}
+
+var unconfirmedDepredations = [
+  {
+    state: 'COLORADO',
+    data: [
+      {
+        year: 1995,
+        predatorLoss: calcPredatorLossPercent({
+          cattleTotal: 45000,
+          cattlePredator: 400,
+          calvesTotal: 60000,
+          calvesPredator: 3500,
+        })
+      },
+      {
+        year: 2005,
+        predatorLoss: calcPredatorLossPercent({
+          cattleTotal: 50000,
+          cattlePredator: 700,
+          calvesTotal: 55000,
+          calvesPredator: 4000
+        })
+      },
+      {
+        year: 2010,
+        predatorLoss: calcPredatorLossPercent({
+          cattleTotal: 55000,
+          cattlePredator: 800,
+          calvesTotal: 55000,
+          calvesPredator: 4300
+        })
+      }
+    ]
+  },
+  {
+    state: 'IDAHO',
+    data: [
+      { 
+        year: 1995,
+        predatorLoss: calcPredatorLossPercent({
+          cattleTotal: 26000,
+          cattlePredator: 300,
+          calvesTotal: 52000,
+          calvesPredator: 1300
+        })
+      },
+      {
+        year: 2005,
+        predatorLoss: calcPredatorLossPercent({
+          cattleTotal: 42000,
+          cattlePredator: 500,
+          calvesTotal: 63000,
+          calvesPredator: 2000
+        })
+      },
+      {
+        year: 2010,
+        predatorLoss: calcPredatorLossPercent({
+          cattleTotal: 42000,
+          cattlePredator: 1900,
+          calvesTotal: 51000,
+          calvesPredator: 4200
+        })
+      }
+    ]
+  },
+  {
+    state: 'MONTANA',
+    data: [
+      {
+        year: 1995,
+        predatorLoss: calcPredatorLossPercent({
+          cattleTotal: 23000,
+          cattlePredator: 500,
+          calvesTotal: 57000,
+          calvesPredator: 1800
+        })
+      },
+      {
+        year: 2005,
+        predatorLoss: calcPredatorLossPercent({
+          cattleTotal: 20000,
+          cattlePredator: 600,
+          calvesTotal: 46000,
+          calvesPredator: 2400
+        })
+      },
+      {
+        year: 2010,
+        predatorLoss: calcPredatorLossPercent({
+          cattleTotal: 23000,
+          cattlePredator: 1000,
+          calvesTotal: 57000,
+          calvesPredator: 4200
+        })
+      }
+    ]
+  },
+  {
+    state: 'OREGON',
+    data: [
+      {
+        year: 1995,
+        predatorLoss: calcPredatorLossPercent({
+          cattleTotal: 28000,
+          cattlePredator: 300,
+          calvesTotal: 50000,
+          calvesPredator: 4400
+        })
+      },
+      {
+        year: 2005,
+        predatorLoss: calcPredatorLossPercent({
+          cattleTotal: 23000,
+          cattlePredator: 400,
+          calvesTotal: 42000,
+          calvesPredator: 4100
+        })
+      },
+      {
+        year: 2010,
+        predatorLoss: calcPredatorLossPercent({
+          cattleTotal: 20000,
+          cattlePredator: 600,
+          calvesTotal: 35000,
+          calvesPredator: 3200
+        })
+      }
+    ]
+  },
+  {
+    state: 'WASHINGTON',
+    data: [
+      {
+        year: 1995,
+        predatorLoss: calcPredatorLossPercent({
+          cattleTotal: 22000,
+          cattlePredator: 200,
+          calvesTotal: 29000,
+          calvesPredator: 1000
+        })
+      },
+      {
+        year: 2005,
+        predatorLoss: calcPredatorLossPercent({
+          cattleTotal: 21000,
+          cattlePredator: 900,
+          calvesTotal: 23000,
+          calvesPredator: 1600
+        })
+      },
+      {
+        year: 2010,
+        predatorLoss: calcPredatorLossPercent({
+          cattleTotal: 20000,
+          cattlePredator: 200,
+          calvesTotal: 19000,
+          calvesPredator: 1500
+        })
+      }
+    ]
+  },
+  {
+    state: 'WYOMING',
+    data: [
+      {
+        year: 1995,
+        predatorLoss: calcPredatorLossPercent({
+          cattleTotal: 15000,
+          cattlePredator: 200,
+          calvesTotal: 30000,
+          calvesPredator: 1600
+        })
+      },
+      {
+        year: 2005,
+        predatorLoss: calcPredatorLossPercent({
+          cattleTotal: 11000,
+          cattlePredator: 500,
+          calvesTotal: 31000,
+          calvesPredator: 3500
+        })
+      },
+      {
+        year: 2010,
+        predatorLoss: calcPredatorLossPercent({
+          cattleTotal: 11000,
+          cattlePredator: 400,
+          calvesTotal: 30000,
+          calvesPredator: 3500
+        })
+      }
+    ]
+  }
+];
+
+unconfirmedDepredations.forEach(function(ud) {
+  ud.data.forEach(function(d) {
+    d.nonPredatorLoss = 1 - d.predatorLoss;
+  });
+});

@@ -82,16 +82,41 @@ th:empty {
 }
 
 .loss-area {
-  fill: darkred;
+  fill: black;
   fill-opacity: 0.5;
+}
+.all-loss-label {
+  opacity: 0.5;
+}
+
+.predator-loss-label,
+.predator-loss-slice {
+  fill: darkred;
+  color: darkred;
+}
+
+.non-predator-loss-slice,
+.non-predator-loss-label {
+  color: steelblue;
+  fill: steelblue;
+}
+
+.pie-loss {
+  opacity: 1;
+  font-size: 0.7em;
 }
 
 .line-graph-state-label {
   font-size: 0.5em;
 }
 
+.pie-line,
 .axis text, .axis path, .axis line {
   opacity: 0.3;
+}
+
+.pie-line {
+  stroke: black;
 }
 
 .wolf-reintro-annotation line {
@@ -172,4 +197,8 @@ th:empty {
 
 .sources p {
   margin-bottom: 0;
+}
+
+.loss-legend {
+  margin-bottom: 1.5em;
 }
