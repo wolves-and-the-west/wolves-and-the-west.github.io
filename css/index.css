@@ -83,22 +83,25 @@ th:empty {
 
 .loss-area {
   fill: black;
-  fill-opacity: 0.5;
+  fill-opacity: 0.3;
 }
 .all-loss-label {
-  opacity: 0.5;
+  opacity: 0.3;
 }
 
 .predator-loss-label,
 .predator-loss-slice {
   fill: darkred;
   color: darkred;
+  font-weight: bold;
 }
 
-.non-predator-loss-slice,
-.non-predator-loss-label {
-  color: steelblue;
+.non-predator-loss-slice {
   fill: steelblue;
+  fill-opacity: 0.3;
+}
+.non-predator-loss-label {
+  color: rgba(70, 130, 180, 0.75);
 }
 
 .pie-loss {
