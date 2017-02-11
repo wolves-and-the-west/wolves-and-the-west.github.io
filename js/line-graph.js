@@ -20,19 +20,34 @@ LineGraph = (function() {
     <table class="line-tooltip-table">
       <thead>
         <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th colspan="2" style="text-align: center">Percent Loss</th>
+        </tr>
+        <tr>
+          <th></th>
           <th>Inventory</th>
           <th>Loss</th>
-          <th>Percent Loss</th>
+          <th>Of Type</th>
+          <th>Of Total</th>
         </tr>
       </thead>
       <tbody>
-        <% d.forEach(function(state) { %>
-          <tr>
-            <td><%= formatNumber(state.inventory) %></td>
-            <td><%= formatNumber(state.loss) %></td>
-            <td><%= d3.format('.2%')(state.percent) %></td>
-          </tr>
-        <% }); %>
+        <tr>
+          <th>Cattle</th>
+          <td><%= formatNumber(d.cattleInv) %></td>
+          <td><%= formatNumber(d.cattleLoss) %></td>
+          <td><%= d3.format('.2%')(d.cattlePercent) %></td>
+          <td><%= d3.format('.2%')(d.cattlePercentOfTotal) %></td>
+        </tr>
+        <tr>
+          <th>Calves</th>
+          <td><%= formatNumber(d.calvesInv) %></td>
+          <td><%= formatNumber(d.calvesLoss) %></td>
+          <td><%= d3.format('.2%')(d.calvesPercent) %></td>
+          <td><%= d3.format('.2%')(d.calvesPercentOfTotal) %></td>
+        </tr>
       </tbody>
     </table>
   */}));
@@ -54,51 +69,75 @@ LineGraph = (function() {
 
   LineGraph.prototype.prepData = function() {
     var self = this;
-    this.allLossData = allLossData.filter(function(d) {
-      return d.State == self.state &&
-        d["Data Item"] == "__ALL__";
-    });
 
-    this.inventoryData = parseCSV(inventoryDump).filter(function(d) {
-      return d.State == self.state &&
-        d.Period == "FIRST OF JAN";
-    });
+    var keys = [
+      "cattlePercentOfTotal", "calvesPercentOfTotal"
+    ];
+
+    var stack = d3.stack().keys(keys);
 
     this.percentLossData = [];
 
-    this.allLossData.forEach(function(l) {
-      var matchingInventory = _.find(self.inventoryData, function(i) {
-        return i.State == l.State && i.Year == l.Year + 1 && i.Period == "FIRST OF JAN";
-      });
+    parsedLossData.filter(function(d) {
+      return d.State == self.state &&
+        d["Data Item"] == "CATTLE, (EXCL CALVES) - LOSS, DEATH, MEASURED IN HEAD";
+    }).forEach(function(cattleLoss) {
+
+      var calvesLoss = parsedLossData.filter(function(d) {
+        return d.State == cattleLoss.State &&
+          d.Year == cattleLoss.Year &&
+          d["Data Item"] == "CATTLE, CALVES - LOSS, DEATH, MEASURED IN HEAD";
+      })[0];
+
+      var calvesInv = invDataWithCattle.filter(function(inv) {
+        return inv.State == cattleLoss.State &&
+          inv.Year == cattleLoss.Year + 1 &&
+          inv.Period == "FIRST OF JAN" &&
+          inv["Data Item"] == "CATTLE, CALVES - INVENTORY";
+      })[0];
+
+      var cattleInv = invDataWithCattle.filter(function(inv) {
+        return inv.State == cattleLoss.State &&
+          inv.Year == cattleLoss.Year + 1 &&
+          inv.Period == "FIRST OF JAN" &&
+          inv["Data Item"] == "__CATTLE__";
+      })[0];
+
       console.log(
-        'Matched losses of', 
-        l.Year,
-        'against inventory of',
-        matchingInventory.Year,
-        matchingInventory.Period
+        'Matched losses of',
+        cattleLoss.Year,
+        'to inventory of',
+        cattleInv.Year,
+        cattleInv.Period
       );
-      self.percentLossData.push({
-        year: l.Year,
-        state: l.State,
-        percent: l.Value / matchingInventory.Value,
-        inventory: matchingInventory.Value,
-        loss: l.Value
-      });
+
+      var row = {
+        year: cattleLoss.Year,
+        state: cattleLoss.State,
+        cattleLoss: cattleLoss.Value,
+        cattleInv: cattleInv.Value,
+        cattlePercent: cattleLoss.Value / cattleInv.Value,
+        cattlePercentOfTotal: cattleLoss.Value / (cattleInv.Value + calvesInv.Value),
+        calvesLoss: calvesLoss.Value,
+        calvesInv: calvesInv.Value,
+        calvesPercent: calvesLoss.Value / calvesInv.Value,
+        calvesPercentOfTotal: calvesLoss.Value / (cattleInv.Value + calvesInv.Value),
+      }
+
+      self.percentLossData.push(row);
+
     });
 
-    this.groupedPercentLossData = d3.nest()
-      .key(function(d) { return d.state; })
-      .entries(this.percentLossData);
-    console.log(this.groupedPercentLossData);
+    this.stackedValues = stack(this.percentLossData);
   }
 
   LineGraph.prototype.buildScales = function() {
     var self = this;
-    this.years = d3.set(this.allLossData.map(function(d) { return d.Year }))
+    this.years = d3.set(parsedLossData.map(function(d) { return d.Year }))
       .values()
       .map(function(d) { return +d })
       .sort();
-    var states = d3.set(this.allLossData.map(function(d) { return d.State }))
+    var states = d3.set(parsedLossData.map(function(d) { return d.State }))
       .values()
       .sort();
 
@@ -118,9 +157,9 @@ LineGraph = (function() {
     this.bisectYear = d3.bisector(function(d) { return d.year; });
 
     this.area = d3.area()
-      .x(function(d) { return self.x(d.year); })
-      .y0(this.y(0))
-      .y1(function(d) { return self.y(d.percent); })
+      .x(function(d) { return self.x(d.data.year); })
+      .y0(function(d) { return self.y(d[0]) })
+      .y1(function(d) { return self.y(d[1]); })
       .curve(d3.curveMonotoneX);
   }
 
@@ -169,10 +208,11 @@ LineGraph = (function() {
   }
 
   LineGraph.prototype.buildYearTooltip = function(year) {
-    var tooltipData = [];
-    this.groupedPercentLossData.forEach(function(state) {
-      var stateYearData = state.values.filter(function(d) { return d.year == year; })[0];
-      tooltipData.push(stateYearData);
+    var tooltipData;
+    this.stackedValues[0].forEach(function(d) {
+      if (d.data.year == year) {
+        tooltipData = d.data;
+      }
     });
     return LineGraph.tooltipTemplate({self: this, d: tooltipData });
   }
@@ -236,16 +276,16 @@ LineGraph = (function() {
     var self = this;
     var lastLabelY = 0;
 
-    this.groupedPercentLossData
-      .sort(function(a, b) {
-        return d3.descending(a.values[0].percent, b.values[0].percent);
+    var g = self.svg.selectAll('.layer')
+      .data(self.stackedValues)
+      .enter()
+      .append('g');
+    
+    g.append('path')
+      .attr('class', function(d) {
+        return 'loss-' + d.key;
       })
-      .forEach(function(state) {
-        self.svg.append('path')
-          .data([state.values])
-          .attr('class', 'loss-area')
-          .attr('d', self.area);
-      });
+      .attr('d', self.area);
   }
 
   LineGraph.prototype.annotate = function() {

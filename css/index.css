@@ -81,12 +81,21 @@ th:empty {
   color: steelblue;
 }
 
-.loss-area {
+.loss-calvesPercentOfTotal {
   fill: black;
   fill-opacity: 0.3;
 }
-.all-loss-label {
-  opacity: 0.3;
+.loss-cattlePercentOfTotal {
+  fill: black;
+  fill-opacity: 0.6;
+}
+
+
+.cattle-loss-label {
+  opacity: 0.8;
+}
+.calves-loss-label {
+  opacity: 0.5;
 }
 
 .predator-loss-label,
