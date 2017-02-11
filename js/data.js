@@ -632,6 +632,9 @@ var calcPredatorLossPercent = function(scope) {
   );
 }
 
+// Only the 2000 report lacks loss totals; however,
+// these can be pulled from the other loss data.
+// http://usda.mannlib.cornell.edu/usda/nass/CattPredLo//2000s/2001/CattPredLo-05-04-2001.txt
 var getTotalFromLoss = function(state, year, type) {
   var data = type == 'cattle' ?
     cattleLossData :
