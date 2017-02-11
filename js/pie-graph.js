@@ -42,7 +42,7 @@ PieGraph = (function() {
 
     var arcs = years.selectAll(".arc")
       .data(function(d) {
-        return pie([d.predatorLoss, d.nonPredatorLoss]);
+        return pie([d.predatorLossPercent, d.nonPredatorLossPercent]);
       })
       .enter()
       .append("g")
@@ -67,10 +67,10 @@ PieGraph = (function() {
       .html(function(d) {
         return '<section class="pie-loss">' +
         '<span class="predator-loss-label">' +
-        formatPercent(d.predatorLoss) +
+        formatPercent(d.predatorLossPercent) +
         '</span><br>' +
         '<span class="non-predator-loss-label">' +
-        formatPercent(d.nonPredatorLoss) +
+        formatPercent(d.nonPredatorLossPercent) +
         '</span>' +
         '</section>'
       });

@@ -625,13 +625,6 @@ Notes:
 
 */
 
-var calcPredatorLossPercent = function(scope) {
-  return math.eval(
-    '(cattlePredator + calvesPredator) / (cattleTotal + calvesTotal)',
-    scope
-  );
-}
-
 // Only the 2000 report lacks loss totals; however,
 // these can be pulled from the other loss data.
 // http://usda.mannlib.cornell.edu/usda/nass/CattPredLo//2000s/2001/CattPredLo-05-04-2001.txt
@@ -652,39 +645,47 @@ var unconfirmedDepredations = [
     data: [
       {
         year: 1995,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: 45000,
-          cattlePredator: 400,
-          calvesTotal: 60000,
-          calvesPredator: 3500,
-        })
+        cattle: {
+          total: 45000,
+          predator: 400,
+        },
+        calves: {
+          total: 60000,
+          predator: 3500
+        }
       },
       {
         year: 2000,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: getTotalFromLoss('COLORADO', 2000, 'cattle'),
-          cattlePredator: 500,
-          calvesTotal: getTotalFromLoss('COLORADO', 2000, 'calves'),
-          calvesPredator: 3000
-        })
+        cattle: {
+          total: getTotalFromLoss('COLORADO', 2000, 'cattle'),
+          predator: 500
+        },
+        calves: {
+          total: getTotalFromLoss('COLORADO', 2000, 'calves'),
+          predator: 3000
+        }
       },
       {
         year: 2005,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: 50000,
-          cattlePredator: 700,
-          calvesTotal: 55000,
-          calvesPredator: 4000
-        })
+        cattle: {
+          total: 50000,
+          predator: 700,
+        },
+        calves: {
+          total: 55000,
+          predator: 4000
+        }
       },
       {
         year: 2010,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: 55000,
-          cattlePredator: 800,
-          calvesTotal: 55000,
-          calvesPredator: 4300
-        })
+        cattle: {
+          total: 55000,
+          predator: 800,
+        },
+        calves: {
+          total: 55000,
+          predator: 4300
+        }
       }
     ]
   },
@@ -693,39 +694,47 @@ var unconfirmedDepredations = [
     data: [
       { 
         year: 1995,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: 26000,
-          cattlePredator: 300,
-          calvesTotal: 52000,
-          calvesPredator: 1300
-        })
+        cattle: {
+          total: 26000,
+          predator: 300,
+        },
+        calves: {
+          total: 52000,
+          predator: 1300
+        }
       },
       {
         year: 2000,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: getTotalFromLoss('IDAHO', 2000, 'cattle'),
-          cattlePredator: 300,
-          calvesTotal: getTotalFromLoss('IDAHO', 2000, 'calves'),
-          calvesPredator: 2300
-        })
+        cattle: {
+          total: getTotalFromLoss('IDAHO', 2000, 'cattle'),
+          predator: 300,
+        },
+        calves: {
+          total: getTotalFromLoss('IDAHO', 2000, 'calves'),
+          predator: 2300
+        }
       },
       {
         year: 2005,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: 42000,
-          cattlePredator: 500,
-          calvesTotal: 63000,
-          calvesPredator: 2000
-        })
+        cattle: {
+          total: 42000,
+          predator: 500,
+        },
+        calves: {
+          total: 63000,
+          predator: 2000
+        }
       },
       {
         year: 2010,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: 42000,
-          cattlePredator: 1900,
-          calvesTotal: 51000,
-          calvesPredator: 4200
-        })
+        cattle: {
+          total: 42000,
+          predator: 1900,
+        },
+        calves: {
+          total: 51000,
+          predator: 4200
+        }
       }
     ]
   },
@@ -734,39 +743,47 @@ var unconfirmedDepredations = [
     data: [
       {
         year: 1995,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: 23000,
-          cattlePredator: 500,
-          calvesTotal: 57000,
-          calvesPredator: 1800
-        })
+        cattle: {
+          total: 23000,
+          predator: 500,
+        },
+        calves: {
+          total: 57000,
+          predator: 1800
+        }
       },
       {
         year: 2000,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: getTotalFromLoss('MONTANA', 2000, 'cattle'),
-          cattlePredator: 600,
-          calvesTotal: getTotalFromLoss('MONTANA', 2000, 'calves'),
-          calvesPredator: 3200
-        })
+        cattle: {
+          total: getTotalFromLoss('MONTANA', 2000, 'cattle'),
+          predator: 600,
+        },
+        calves: {
+          total: getTotalFromLoss('MONTANA', 2000, 'calves'),
+          predator: 3200
+        }
       },
       {
         year: 2005,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: 20000,
-          cattlePredator: 600,
-          calvesTotal: 46000,
-          calvesPredator: 2400
-        })
+        cattle: {
+          total: 20000,
+          predator: 600,
+        },
+        calves: {
+          total: 46000,
+          predator: 2400
+        }
       },
       {
         year: 2010,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: 23000,
-          cattlePredator: 1000,
-          calvesTotal: 57000,
-          calvesPredator: 4200
-        })
+        cattle: {
+          total: 23000,
+          predator: 1000,
+        },
+        calves: {
+          total: 57000,
+          predator: 4200
+        }
       }
     ]
   },
@@ -775,39 +792,47 @@ var unconfirmedDepredations = [
     data: [
       {
         year: 1995,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: 28000,
-          cattlePredator: 300,
-          calvesTotal: 50000,
-          calvesPredator: 4400
-        })
+        cattle: {
+          total: 28000,
+          predator: 300,
+        },
+        calves: {
+          total: 50000,
+          predator: 4400
+        }
       },
       {
         year: 2000,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: getTotalFromLoss('OREGON', 2000, 'cattle'),
-          cattlePredator: 300,
-          calvesTotal: getTotalFromLoss('OREGON', 2000, 'calves'),
-          calvesPredator: 4100
-        })
+        cattle: {
+          total: getTotalFromLoss('OREGON', 2000, 'cattle'),
+          predator: 300,
+        },
+        calves: {
+          total: getTotalFromLoss('OREGON', 2000, 'calves'),
+          predator: 4100
+        }
       },
       {
         year: 2005,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: 23000,
-          cattlePredator: 400,
-          calvesTotal: 42000,
-          calvesPredator: 4100
-        })
+        cattle: {
+          total: 23000,
+          predator: 400,
+        },
+        calves: {
+          total: 42000,
+          predator: 4100
+        }
       },
       {
         year: 2010,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: 20000,
-          cattlePredator: 600,
-          calvesTotal: 35000,
-          calvesPredator: 3200
-        })
+        cattle: {
+          total: 20000,
+          predator: 600,
+        },
+        calves: {
+          total: 35000,
+          predator: 3200
+        }
       }
     ]
   },
@@ -816,39 +841,47 @@ var unconfirmedDepredations = [
     data: [
       {
         year: 1995,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: 22000,
-          cattlePredator: 200,
-          calvesTotal: 29000,
-          calvesPredator: 1000
-        })
+        cattle: {
+          total: 22000,
+          predator: 200,
+        },
+        calves: {
+          total: 29000,
+          predator: 1000
+        }
       },
       {
         year: 2000,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: getTotalFromLoss('WASHINGTON', 2000, 'cattle'),
-          cattlePredator: 600,
-          calvesTotal: getTotalFromLoss('WASHINGTON', 2000, 'calves'),
-          calvesPredator: 1600
-        })
+        cattle: {
+          total: getTotalFromLoss('WASHINGTON', 2000, 'cattle'),
+          predator: 600,
+        },
+        calves: {
+          total: getTotalFromLoss('WASHINGTON', 2000, 'calves'),
+          predator: 1600
+        }
       },
       {
         year: 2005,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: 21000,
-          cattlePredator: 900,
-          calvesTotal: 23000,
-          calvesPredator: 1600
-        })
+        cattle: {
+          total: 21000,
+          predator: 900,
+        },
+        calves: {
+          total: 23000,
+          predator: 1600
+        }
       },
       {
         year: 2010,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: 20000,
-          cattlePredator: 200,
-          calvesTotal: 19000,
-          calvesPredator: 1500
-        })
+        cattle: {
+          total: 20000,
+          predator: 200,
+        },
+        calves: {
+          total: 19000,
+          predator: 1500
+        }
       }
     ]
   },
@@ -857,39 +890,47 @@ var unconfirmedDepredations = [
     data: [
       {
         year: 1995,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: 15000,
-          cattlePredator: 200,
-          calvesTotal: 30000,
-          calvesPredator: 1600
-        })
+        cattle: {
+          total: 15000,
+          predator: 200,
+        },
+        calves: {
+          total: 30000,
+          predator: 1600
+        }
       },
       {
         year: 2000,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: getTotalFromLoss('WYOMING', 2000, 'cattle'),
-          cattlePredator: 300,
-          calvesTotal: getTotalFromLoss('WYOMING', 2000, 'calves'),
-          calvesPredator: 3600
-        })
+        cattle: {
+          total: getTotalFromLoss('WYOMING', 2000, 'cattle'),
+          predator: 300,
+        },
+        calves: {
+          total: getTotalFromLoss('WYOMING', 2000, 'calves'),
+          predator: 3600
+        }
       },
       {
         year: 2005,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: 11000,
-          cattlePredator: 500,
-          calvesTotal: 31000,
-          calvesPredator: 3500
-        })
+        cattle: {
+          total: 11000,
+          predator: 500,
+        },
+        calves: {
+          total: 31000,
+          predator: 3500
+        }
       },
       {
         year: 2010,
-        predatorLoss: calcPredatorLossPercent({
-          cattleTotal: 11000,
-          cattlePredator: 400,
-          calvesTotal: 30000,
-          calvesPredator: 3500
-        })
+        cattle: {
+          total: 11000,
+          predator: 400,
+        },
+        calves: {
+          total: 30000,
+          predator: 3500
+        }
       }
     ]
   }
@@ -897,6 +938,8 @@ var unconfirmedDepredations = [
 
 unconfirmedDepredations.forEach(function(ud) {
   ud.data.forEach(function(d) {
-    d.nonPredatorLoss = 1 - d.predatorLoss;
+    d.predatorLossPercent = (d.cattle.predator + d.calves.predator) /
+      (d.cattle.total + d.calves.total);
+    d.nonPredatorLossPercent = 1 - d.predatorLossPercent;
   });
 });
