@@ -115,7 +115,7 @@ LineGraph = (function() {
       .attr("class", "line-tooltip")
       .style("display", "none");
 
-    this.bisectYear = d3.bisector(function(d) { return d.year; }).left;
+    this.bisectYear = d3.bisector(function(d) { return d.year; });
 
     this.area = d3.area()
       .x(function(d) { return self.x(d.year); })
@@ -147,7 +147,7 @@ LineGraph = (function() {
       this.x.range()[1],
       this.x.step()
     );
-    var year = this.x.domain()[d3.bisect(rangePoints, xPos) -1];
+    var year = this.x.domain()[d3.bisect(rangePoints, xPos)];
 
     this.hoverLine.select('line')
       .attr('x1', this.x(year) + 0.5)
