@@ -13,7 +13,7 @@ var LineGraph;
 LineGraph = (function() {
 
   LineGraph.height = 125;
-  LineGraph.width = 400;
+  LineGraph.width = 355;
   
   LineGraph.yLabelOffset = 8;
   LineGraph.tooltipTemplate = _.template(heredoc(function(){/*
