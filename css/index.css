@@ -214,3 +214,31 @@ th:empty {
 .loss-legend {
   margin-bottom: 1.5em;
 }
+
+.loss-figure {
+  color: firebrick;
+}
+
+.loss-year {
+  font-weight: bold;
+  font-size: 1.75em;
+}
+
+.loss-source {
+  font-size: 0.75em;
+  opacity: 0.5;
+}
+
+.loss-glance-bar {
+  fill: firebrick;
+}
+
+.loss-glance-label-wolves {
+  font-weight: bold;
+}
+
+.section-subheader {
+  font-size: 1.25em;
+  position: relative;
+  top: -0.5em;
+}
