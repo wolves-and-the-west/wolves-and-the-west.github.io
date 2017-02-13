@@ -11,28 +11,50 @@ LossGlance = (function() {
       },
       data: [
         {
-          type: 'Predators',
-          percent: 0.027
+          type: 'percentages',
+          data: [
+            {
+              type: 'Predators',
+              value: 0.027
+            },
+            {
+              type: 'Coyotes',
+              value: 0.016
+            },
+            {
+              type: 'Wolves',
+              value: 0.001,
+            },
+            {
+              type: 'Dogs',
+              value: 0.005,
+            },
+            {
+              type: 'Non-predators',
+              value: 0.973,
+            },
+            {
+              type: 'Weather',
+              value: 0.095
+            }
+          ]
         },
         {
-          type: 'Coyotes',
-          percent: 0.016
-        },
-        {
-          type: 'Wolves',
-          percent: 0.001,
-        },
-        {
-          type: 'Dogs',
-          percent: 0.005,
-        },
-        {
-          type: 'Non-predators',
-          percent: 0.973,
-        },
-        {
-          type: 'Weather',
-          percent: 0.095
+          type: 'dollars',
+          data: [
+            {
+              type: 'All losses',
+              value: numbro().unformat('1.801402b')
+            },
+            {
+              type: 'Predators',
+              value: numbro().unformat('39.562m')
+            },
+            {
+              type: 'Non-predators',
+              value: numbro().unformat('1.761839b')
+            }
+          ]
         }
       ]
     },
@@ -44,28 +66,50 @@ LossGlance = (function() {
       },
       data: [
         {
-          type: 'Predators',
-          percent: 0.047
+          type: 'percentages',
+          data: [
+            {
+              type: 'Predators',
+              value: 0.047
+            },
+            {
+              type: 'Coyotes',
+              value: 0.047 * 0.511,
+            },
+            {
+              type: 'Wolves',
+              value: 0.047 * 0.023,
+            },
+            {
+              type: 'Dogs',
+              value: 0.047 * 0.115
+            },
+            {
+              type: 'Weather',
+              value: 0.953 * 0.071
+            },
+            {
+              type: 'Non-predators',
+              value: 0.953
+            }
+          ]
         },
         {
-          type: 'Coyotes',
-          percent: 0.047 * 0.511,
-        },
-        {
-          type: 'Wolves',
-          percent: 0.047 * 0.023,
-        },
-        {
-          type: 'Dogs',
-          percent: 0.047 * 0.115
-        },
-        {
-          type: 'Weather',
-          percent: 0.953 * 0.071
-        },
-        {
-          type: 'Non-predators',
-          percent: 0.953
+          type: 'dollars',
+          data: [
+            {
+              type: 'Predators',
+              value: numbro().unformat('92.674m')
+            },
+            {
+              type: 'Non-predators',
+              value: numbro().unformat('2.498575b')
+            },
+            {
+              type: 'All losses',
+              value: numbro().unformat('2.591249b')
+            }
+          ]
         }
       ]
     },
@@ -77,106 +121,74 @@ LossGlance = (function() {
       },
       data: [
         {
-          type: 'Predators',
-          percent: 0.043
+          type: 'percentages',
+          data: [
+            {
+              type: 'Predators',
+              value: 0.043
+            },
+            {
+              type: 'Coyotes',
+              value: 0.043 * 0.531
+            },
+            {
+              type: 'Wolves',
+              value: 0.043 * 0.037
+            },
+            {
+              type: 'Weather',
+              value: 0.945 * 0.13
+            },
+            {
+              type: 'Dogs',
+              value: 0.043 * 0.099
+            },
+            {
+              type: 'Non-predators',
+              value: 0.945
+            }
+          ]
         },
         {
-          type: 'Coyotes',
-          percent: 0.043 * 0.531
-        },
-        {
-          type: 'Wolves',
-          percent: 0.043 * 0.037
-        },
-        {
-          type: 'Weather',
-          percent: 0.945 * 0.13
-        },
-        {
-          type: 'Dogs',
-          percent: 0.043 * 0.099
-        },
-        {
-          type: 'Non-predators',
-          percent: 0.945
+          type: 'dollars',
+          data: [
+            {
+              type: 'Predators',
+              value: numbro().unformat('98.475m')
+            },
+            {
+              type: 'Non-predators',
+              value: numbro().unformat('2.352899b')
+            },
+            {
+              type: 'All losses',
+              value: numbro().unformat('2.451374b')
+            }
+          ]
         }
       ]
     }
   ];
 
   function LossGlance(data) {
-    this.data = data;
-    this.data.data.sort(function(a, b) { return d3.descending(b.percent, a.percent); });
-    
-    this.height = this.data.data.length * 20;
-    this.width = 450;
-
-    this.buildScales();
-    this.buildSVG();
-  }
-
-
-  LossGlance.prototype.buildScales = function() {
-    this.x = d3.scaleLinear()
-      .range([0, this.width])
-      .domain([0, 1]);
-    this.y = d3.scaleBand()
-      .range([this.height, 0])
-      .domain(this.data.data.map(function(d) { return d.type }))
-      .padding(0.2);
-  }
-
-  LossGlance.prototype.buildSVG = function() {
     var self = this;
+    this.data = data;
 
-    var section = d3.select('.loss-glance')
+    this.section = d3.select('.loss-glance')
       .append('div')
       .attr('class', 'large-4 medium-6 columns')
       .append('section')
       .attr('class', 'callout')
-      
-    section.append('h1')
+
+    this.section.append('h1')
       .attr('class', 'loss-year')
       .text(this.data.year);
-      
-    this.svg = section.append('svg')
-      .attr('viewBox', [
-        0,
-        0,
-        this.width,
-        this.height
-      ].join(' '))
-      .attr('preserveAspectRatio', 'xMinYMin meet')
-      .append('g');
 
-    var g = this.svg.append('g');
+    this.data.data.forEach(function(d) {
+      new LossGlanceGraph(self.section, d);
+    });
 
-    g.selectAll('.bar')
-      .data(this.data.data)
-      .enter()
-      .append('rect')
-      .attr('class', 'loss-glance-bar')
-      .attr('x', 115)
-      .attr('height', self.y.bandwidth())
-      .attr('y', function(d) { return self.y(d.type) })
-      .attr('width', function(d) { return self.x(d.percent) });
-
-    g.selectAll('.label')
-      .data(this.data.data)
-      .enter()
-      .append('text')
-      .attr('class', function(d) {
-        var classes = ['loss-glance-label'];
-        if (d.type == 'Wolves') {
-          classes.push('loss-glance-label-wolves');
-        }
-        return classes.join(' ');
-      })
-      .attr('x', 0)
-      .attr('y', function(d) { return self.y(d.type) + 12 })
-      .text(function(d) { return d.type });
-
-    var p = section.append('p')
+    var p = this.section.append('p')
       .attr('class', 'loss-source');
 
     p.append('span').text('Source: ')

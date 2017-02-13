@@ -222,6 +222,7 @@ th:empty {
 .loss-year {
   font-weight: bold;
   font-size: 1.75em;
+  margin-bottom: 0;
 }
 
 .loss-source {
@@ -241,4 +242,11 @@ th:empty {
   font-size: 1.25em;
   position: relative;
   top: -0.5em;
+}
+
+.loss-type-header {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 0;
+  margin-top: 0.5em;
 }
