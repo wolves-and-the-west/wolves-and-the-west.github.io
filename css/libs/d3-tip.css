@@ -1,6 +1,8 @@
 .d3-tip {
   line-height: 1;
-  padding: 1em;
-  background: steelblue;
   border-radius: 0.5em;
+  background: #ddd;
+  opacity: 0.95;
+  font-size: 0.75em;
+  padding: 0.5em;
 }

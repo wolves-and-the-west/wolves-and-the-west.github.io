@@ -3,6 +3,7 @@ var LossGlanceGraph;
 LossGlanceGraph = (function() {
 
   function LossGlanceGraph(container, data) {
+    var self = this;
     this.container = container;
     this.data = data;
     this.data.data.sort(function(a, b) { return d3.descending(b.value, a.value); });
@@ -10,6 +11,13 @@ LossGlanceGraph = (function() {
     this.marginLeft = 115;
     this.height = this.data.data.length * 20;
     this.width = 450;
+
+    this.tip = d3.tip().attr('class', 'd3-tip')
+      .html(function(d) {
+        return self.data.type == 'percentages' ?
+          d3.format('.1%')(d.value) :
+          numbro(d.value).formatCurrency('($ 0.00 a)');
+      });
 
     this.buildScales();
     this.buildSVG();
@@ -51,6 +59,8 @@ LossGlanceGraph = (function() {
       .attr('preserveAspectRatio', 'xMinYMin meet')
       .append('g');
 
+    this.svg.call(this.tip);
+
     var g = this.svg.append('g');
 
     g.selectAll('.bar')
@@ -61,7 +71,9 @@ LossGlanceGraph = (function() {
       .attr('x', this.marginLeft)
       .attr('height', self.y.bandwidth())
       .attr('y', function(d) { return self.y(d.type) })
-      .attr('width', function(d) { console.log(d.value, self.x(d.value)); return self.x(d.value) });
+      .attr('width', function(d) { console.log(d.value, self.x(d.value)); return self.x(d.value) })
+      .on('mouseover', this.tip.show)
+      .on('mouseout', this.tip.hide);
 
     g.selectAll('.label')
       .data(this.data.data)
