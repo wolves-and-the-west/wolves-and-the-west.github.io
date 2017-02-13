@@ -81,15 +81,14 @@ th:empty {
   color: steelblue;
 }
 
-.loss-calvesPercentOfTotal {
+.loss-calvesPercent {
   fill: black;
   fill-opacity: 0.3;
 }
-.loss-cattlePercentOfTotal {
+.loss-cattlePercent {
   fill: black;
   fill-opacity: 0.6;
 }
-
 
 .cattle-loss-label {
   opacity: 0.8;
@@ -212,7 +211,8 @@ th:empty {
 }
 
 .loss-legend {
-  margin-bottom: 1.5em;
+  margin-top: 0.5em;
+  margin-bottom: 2em;
 }
 
 .loss-figure {

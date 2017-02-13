@@ -71,7 +71,7 @@ LineGraph = (function() {
     var self = this;
 
     var keys = [
-      "cattlePercentOfTotal", "calvesPercentOfTotal"
+      "cattlePercent", "calvesPercent"
     ];
 
     var stack = d3.stack().keys(keys);
@@ -89,11 +89,9 @@ LineGraph = (function() {
           d["Data Item"] == "CATTLE, CALVES - LOSS, DEATH, MEASURED IN HEAD";
       })[0];
 
-      var calvesInv = invDataWithCattle.filter(function(inv) {
+      var calvesInv = calfCropData.filter(function(inv) {
         return inv.State == cattleLoss.State &&
-          inv.Year == cattleLoss.Year + 1 &&
-          inv.Period == "FIRST OF JAN" &&
-          inv["Data Item"] == "CATTLE, CALVES - INVENTORY";
+          inv.Year == cattleLoss.Year
       })[0];
 
       var cattleInv = invDataWithCattle.filter(function(inv) {
@@ -146,7 +144,7 @@ LineGraph = (function() {
       .range([0, LineGraph.width]);
 
     this.y = d3.scaleLinear()
-      .domain([0, 0.1])
+      .domain([0, 0.2])
       .range([LineGraph.height, 0])
       .nice();
 
