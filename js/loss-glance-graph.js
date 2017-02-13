@@ -32,7 +32,15 @@ LossGlanceGraph = (function() {
       this.x.domain([0, 1]);
     }
     else {
-      this.x.domain([0, d3.max(this.data.data, function(d) { return d.value })]);
+      var max = d3.max(LossGlance.data, function(d) {
+        return d3.max(
+          d.data.filter(function(d2) {
+            return d2.type == 'dollars';
+          })[0].data,
+          function(d3) { return d3.value; }
+        );
+      });
+      this.x.domain([0, max]);
     }
 
     this.y = d3.scaleBand()
