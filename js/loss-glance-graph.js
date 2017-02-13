@@ -10,7 +10,7 @@ LossGlanceGraph = (function() {
     
     this.marginLeft = 115;
     this.height = this.data.data.length * 20;
-    this.width = 450;
+    this.width = 400;
 
     this.tip = d3.tip().attr('class', 'd3-tip')
       .html(function(d) {
