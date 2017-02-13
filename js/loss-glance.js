@@ -125,15 +125,15 @@ LossGlance = (function() {
           data: [
             {
               type: 'Predators',
-              value: 0.043
+              value: 0.055
             },
             {
               type: 'Coyotes',
-              value: 0.043 * 0.531
+              value: 0.055 * 0.531
             },
             {
               type: 'Wolves',
-              value: 0.043 * 0.037
+              value: 0.055 * 0.037
             },
             {
               type: 'Weather',
@@ -141,7 +141,7 @@ LossGlance = (function() {
             },
             {
               type: 'Dogs',
-              value: 0.043 * 0.099
+              value: 0.055 * 0.099
             },
             {
               type: 'Non-predators',
