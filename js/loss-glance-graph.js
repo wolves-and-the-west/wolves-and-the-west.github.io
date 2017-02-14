@@ -8,9 +8,10 @@ LossGlanceGraph = (function() {
     this.data = data;
     this.data.data.sort(function(a, b) { return d3.descending(b.value, a.value); });
     
+    this.baseWidth = 450;
     this.marginLeft = 115;
     this.height = this.data.data.length * 20;
-    this.width = 400;
+    this.width = - this.baseWidth;
 
     this.tip = d3.tip().attr('class', 'd3-tip')
       .html(function(d) {
@@ -61,7 +62,7 @@ LossGlanceGraph = (function() {
       .attr('viewBox', [
         0,
         0,
-        this.width,
+        this.width + this.marginLeft,
         this.height
       ].join(' '))
       .attr('preserveAspectRatio', 'xMinYMin meet')
@@ -79,7 +80,7 @@ LossGlanceGraph = (function() {
       .attr('x', this.marginLeft)
       .attr('height', self.y.bandwidth())
       .attr('y', function(d) { return self.y(d.type) })
-      .attr('width', function(d) { console.log(d.value, self.x(d.value)); return self.x(d.value) })
+      .attr('width', function(d) { return self.x(d.value) })
       .on('mouseover', this.tip.show)
       .on('mouseout', this.tip.hide);
 
