@@ -180,7 +180,7 @@ LossGlance = (function() {
       .append('section')
       .attr('class', 'callout')
 
-    this.section.append('h1')
+    this.section.append('h4')
       .attr('class', 'loss-year')
       .text(this.data.year);
 

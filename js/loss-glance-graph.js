@@ -53,7 +53,7 @@ LossGlanceGraph = (function() {
     var self = this;
 
     var section = this.container;
-    section.append('h1')
+    section.append('h5')
       .attr('class', 'loss-type-header')
       .text(this.data.type == 'percentages' ? 'Causes' : 'Cost');
 
