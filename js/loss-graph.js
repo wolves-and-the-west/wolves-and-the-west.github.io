@@ -2,12 +2,12 @@ var LossGraph;
 
 LossGraph = (function() {
 
-  LossGraph.baseHeight = 225;
+  LossGraph.baseHeight = 205;
   LossGraph.baseWidth = 400;
 
   LossGraph.margin = {
-    top: 15,
-    bottom: 30,
+    top: 20,
+    bottom: 0,
     right: 15,
     left: 30
   };
@@ -30,7 +30,9 @@ LossGraph = (function() {
     var self = this;
     var container = d3.select('#loss-graphs')
       .append('div')
-      .attr('class', 'large-4 medium-6 columns');
+      .attr('class', 'large-4 medium-6 columns')
+      .append('div')
+      .attr('class', 'callout');
     container.append('h5').text(titleCase(self.state));
     this.svg = container.append('svg')
       .attr('viewBox', [

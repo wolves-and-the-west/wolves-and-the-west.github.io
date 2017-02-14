@@ -208,8 +208,7 @@ th:empty {
 }
 
 .loss-legend {
-  margin-top: 0.5em;
-  margin-bottom: 2em;
+  margin-bottom: 1.5em;
 }
 
 .loss-figure {
