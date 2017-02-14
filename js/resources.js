@@ -10,6 +10,10 @@ var resources = [
   {
     url: 'http://www.sierraclub.org/rocky-mountain-chapter/wolves',
     title: 'Sierra Club: Wolves'
+  },
+  {
+    url: 'http://www.woodriverwolfproject.org',
+    title: 'The Wood River Wolf Project'
   }
 ];
 
