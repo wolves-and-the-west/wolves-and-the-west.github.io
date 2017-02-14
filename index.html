@@ -51,23 +51,38 @@
         <h3 class="section-header">Western Cattle and Calf Losses</h3>
         <h4 class="section-subheader">In Relation To Wolf Reintroduction</h4>
         <div class="expanded row">
-          <div class="large-12 columns">
-            <section class="loss-legend">
-              <div class="row">
-                <div class="large-3 columns">
-                  <span class="cattle-loss-label">&block; Cattle (All Causes)</span>
-                </div>
-                <div class="large-3 columns">
-                  <span class="calves-loss-label">&block; Calves (All Causes)</span>
-                </div>
-                <div class="large-3 columns">
-                  <span class="predator-loss-label">&block; Both (Predator)</span>
-                </div>
-                <div class="large-3 columns">
-                  <span class="non-predator-loss-label">&block; Both (Non-Predator)</span>
-                </div>
-            </section>
-          </div>
+          <section class="loss-legend">
+            <div class="large-3 columns">
+              <span>
+                <svg viewBox="0 0 15 15" class="legend-svg">
+                  <line x1="0" y1="10" x2="15" y2="10" class="loss-cattle"/>
+                </svg>
+                Cattle (All Causes)
+              </span>
+            </div>
+            <div class="large-3 columns">
+              <span>
+                <svg viewBox="0 0 15 15" class="legend-svg">
+                  <line x1="0" y1="10" x2="15" y2="10" class="loss-calves"/>
+                </svg>
+                Calves (All Causes)
+              </span>
+            </div>
+            <div class="large-3 columns">
+              <span class="predator-loss-label">
+                <svg viewBox="0 0 10 10" class="legend-svg">
+                  <circle cx="7.5" cy="7.5" r="7.5" class="predator-loss-slice"/>
+                </svg>
+                Both (Predator)</span>
+            </div>
+            <div class="large-3 columns">
+              <span class="non-predator-loss-label">
+                <svg viewBox="0 0 10 10" class="legend-svg">
+                  <circle cx="7.5" cy="7.5" r="7.5" class="non-predator-loss-slice"/>
+                </svg>
+                Both (Non-Predator)</span>
+            </div>
+          </section>
           <section id="loss-graphs"></section>
         </div>
         <div class="expanded row">

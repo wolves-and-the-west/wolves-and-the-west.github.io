@@ -85,27 +85,20 @@ th:empty {
   color: steelblue;
 }
 
-.loss-calvesPercent {
-  fill: black;
-  fill-opacity: 0.3;
+.loss-calves {
+  stroke: black;
+  stroke-dasharray: 2;
+  fill: none;
 }
-.loss-cattlePercent {
-  fill: black;
-  fill-opacity: 0.6;
-}
-
-.cattle-loss-label {
-  opacity: 0.8;
-}
-.calves-loss-label {
-  opacity: 0.5;
+.loss-cattle {
+  stroke: black;
+  fill: none;
 }
 
 .predator-loss-label,
 .predator-loss-slice {
   fill: darkred;
   color: darkred;
-  font-weight: bold;
 }
 
 .non-predator-loss-slice {
@@ -135,13 +128,13 @@ th:empty {
 }
 
 .wolf-reintro-annotation line {
-  stroke: black;
+  stroke: firebrick;
   stroke-width: 1px;
-  stroke-dasharray: 2;
-  stroke-opacity: 0.5;
+  stroke-dasharray: 3;
 }
 
 .wolf-reintro-annotation text {
+  fill: firebrick;
   font-size: 0.75em;
 }
 
@@ -216,7 +209,7 @@ th:empty {
 
 .loss-legend {
   margin-top: 0.5em;
-  margin-bottom: 2em;
+  margin-bottom: 4em;
 }
 
 .loss-figure {
@@ -253,4 +246,9 @@ th:empty {
   font-weight: bold;
   margin-bottom: 0;
   margin-top: 0.5em;
+}
+
+.legend-svg {
+  width: 1em;
+  display: inline-block;
 }

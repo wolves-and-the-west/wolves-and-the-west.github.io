@@ -12,7 +12,7 @@ var LineGraph;
 
 LineGraph = (function() {
 
-  LineGraph.height = 125;
+  LineGraph.height = 75;
   LineGraph.width = LossGraph.width;
   
   LineGraph.yLabelOffset = 8;
@@ -36,17 +36,17 @@ LineGraph = (function() {
       <tbody>
         <tr>
           <th>Cattle</th>
-          <td><%= formatNumber(d.cattleInv) %></td>
-          <td><%= formatNumber(d.cattleLoss) %></td>
-          <td><%= d3.format('.2%')(d.cattlePercent) %></td>
-          <td><%= d3.format('.2%')(d.cattlePercentOfTotal) %></td>
+          <td><%= formatNumber(d.cattle.inv) %></td>
+          <td><%= formatNumber(d.cattle.loss) %></td>
+          <td><%= d3.format('.2%')(d.cattle.percent) %></td>
+          <td><%= d3.format('.2%')(d.cattle.percentOfTotal) %></td>
         </tr>
         <tr>
           <th>Calves</th>
-          <td><%= formatNumber(d.calvesInv) %></td>
-          <td><%= formatNumber(d.calvesLoss) %></td>
-          <td><%= d3.format('.2%')(d.calvesPercent) %></td>
-          <td><%= d3.format('.2%')(d.calvesPercentOfTotal) %></td>
+          <td><%= formatNumber(d.calves.inv) %></td>
+          <td><%= formatNumber(d.calves.loss) %></td>
+          <td><%= d3.format('.2%')(d.calves.percent) %></td>
+          <td><%= d3.format('.2%')(d.calves.percentOfTotal) %></td>
         </tr>
       </tbody>
     </table>
@@ -74,9 +74,9 @@ LineGraph = (function() {
       "cattlePercent", "calvesPercent"
     ];
 
-    var stack = d3.stack().keys(keys);
-
     this.percentLossData = [];
+    this.cattleLossData = [];
+    this.calvesLossData = [];
 
     parsedLossData.filter(function(d) {
       return d.State == self.state &&
@@ -110,23 +110,41 @@ LineGraph = (function() {
       );
 
       var row = {
+        type: 'cattle',
         year: cattleLoss.Year,
         state: cattleLoss.State,
-        cattleLoss: cattleLoss.Value,
-        cattleInv: cattleInv.Value,
-        cattlePercent: cattleLoss.Value / cattleInv.Value,
-        cattlePercentOfTotal: cattleLoss.Value / (cattleInv.Value + calvesInv.Value),
-        calvesLoss: calvesLoss.Value,
-        calvesInv: calvesInv.Value,
-        calvesPercent: calvesLoss.Value / calvesInv.Value,
-        calvesPercentOfTotal: calvesLoss.Value / (cattleInv.Value + calvesInv.Value),
+        loss: cattleLoss.Value,
+        inv: cattleInv.Value,
+        percent: cattleLoss.Value / cattleInv.Value,
+        percentOfTotal: cattleLoss.Value / (cattleInv.Value + calvesInv.Value),
       }
 
-      self.percentLossData.push(row);
+      self.cattleLossData.push(row);
+
+      row = {
+        type: 'calves',
+        year: cattleLoss.Year,
+        state: cattleLoss.State,
+        loss: calvesLoss.Value,
+        inv: calvesInv.Value,
+        percent: calvesLoss.Value / calvesInv.Value,
+        percentOfTotal: calvesLoss.Value / (cattleInv.Value + calvesInv.Value),
+      }
+
+      self.calvesLossData.push(row);
 
     });
 
-    this.stackedValues = stack(this.percentLossData);
+    this.percentLossData = [
+      {
+        type: 'calves',
+        values: this.calvesLossData
+      },
+      {
+        type: 'cattle',
+        values: this.cattleLossData
+      }
+    ];
   }
 
   LineGraph.prototype.buildScales = function() {
@@ -144,7 +162,7 @@ LineGraph = (function() {
       .range([0, LineGraph.width]);
 
     this.y = d3.scaleLinear()
-      .domain([0, 0.2])
+      .domain([0, 0.1])
       .range([LineGraph.height, 0])
       .nice();
 
@@ -154,10 +172,9 @@ LineGraph = (function() {
 
     this.bisectYear = d3.bisector(function(d) { return d.year; });
 
-    this.area = d3.area()
-      .x(function(d) { return self.x(d.data.year); })
-      .y0(function(d) { return self.y(d[0]) })
-      .y1(function(d) { return self.y(d[1]); })
+    this.area = d3.line()
+      .x(function(d) { return self.x(d.year); })
+      .y(function(d) { return self.y(d.percent); })
       .curve(d3.curveMonotoneX);
   }
 
@@ -206,10 +223,15 @@ LineGraph = (function() {
   }
 
   LineGraph.prototype.buildYearTooltip = function(year) {
-    var tooltipData;
-    this.stackedValues[0].forEach(function(d) {
-      if (d.data.year == year) {
-        tooltipData = d.data;
+    var tooltipData = {};
+    this.calvesLossData.forEach(function(d) {
+      if (d.year == year) {
+        tooltipData.calves = d;
+      }
+    });
+    this.cattleLossData.forEach(function(d) {
+      if (d.year == year) {
+        tooltipData.cattle = d;
       }
     });
     return LineGraph.tooltipTemplate({self: this, d: tooltipData });
@@ -275,15 +297,15 @@ LineGraph = (function() {
     var lastLabelY = 0;
 
     var g = self.svg.selectAll('.layer')
-      .data(self.stackedValues)
+      .data(self.percentLossData)
       .enter()
       .append('g');
     
     g.append('path')
       .attr('class', function(d) {
-        return 'loss-' + d.key;
+        return 'loss-' + d.type;
       })
-      .attr('d', self.area);
+      .attr('d', function(d) { return self.area(d.values); });
   }
 
   LineGraph.prototype.annotate = function() {
