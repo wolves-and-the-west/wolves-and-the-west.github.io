@@ -20,7 +20,7 @@ LossGraph = (function() {
     - LossGraph.margin.left
     - LossGraph.margin.right;
 
-  function LossGraph(state, annotate=true) {
+  function LossGraph(state, annotate) {
     this.state = state.toUpperCase();
     this.annotate = annotate;
     this.buildSVG();

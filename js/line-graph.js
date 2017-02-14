@@ -54,7 +54,7 @@ LineGraph = (function() {
 
   LineGraph.reintroYears = [1995, 1996];
 
-  function LineGraph(lossGraph, container, state, annotate=true) {
+  function LineGraph(lossGraph, container, state, annotate) {
     this.svg = container;
     this.state = state.toUpperCase();
     this.annotateText = annotate;
