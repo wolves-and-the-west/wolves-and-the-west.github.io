@@ -239,10 +239,6 @@ LineGraph = (function() {
 
   LineGraph.prototype.buildSVG = function() {
     var self = this;
-    var container = d3.select('#line-graphs')
-      .append('div')
-      .attr('class', 'large-4 medium-6 columns');
-    container.append('h5').text(titleCase(self.state));
 
     this.hoverLine = this.svg.append("g")
       .attr('class', 'hover-line')
@@ -253,7 +249,6 @@ LineGraph = (function() {
       .attr('x2', 0)
       .attr('y1', this.y(this.y.domain()[0]))
       .attr('y2', this.y(this.y.domain()[1]));
-
   }
 
   LineGraph.prototype.addOverlay = function() {
