@@ -2,11 +2,11 @@ var LossGraph;
 
 LossGraph = (function() {
 
-  LossGraph.baseHeight = 205;
+  LossGraph.baseHeight = 185;
   LossGraph.baseWidth = 400;
 
   LossGraph.margin = {
-    top: 20,
+    top: 10,
     bottom: 0,
     right: 15,
     left: 30
