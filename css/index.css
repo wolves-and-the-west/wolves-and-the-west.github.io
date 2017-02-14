@@ -252,3 +252,9 @@ th:empty {
   width: 1em;
   display: inline-block;
 }
+
+#footer {
+  margin-top: 1em;
+  background: #ddd;
+  padding: 2em;
+}
