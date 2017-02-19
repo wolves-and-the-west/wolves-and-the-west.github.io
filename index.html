@@ -28,132 +28,142 @@
   </head>
   <body onload="load()">
 
-    <div class="callout alert">
-      <p>This is a work in progress: content will continue to change and be verified; therefore, please do not consider this an official resource at the moment. If you find an issue, or have a suggestion, please <a href="https://github.com/wolves-and-the-west/wolves-and-the-west.github.io/issues" target="_blank">submit an issue</a>.</p>
+    <div class="callout alert" style="margin:0;">
+      <p>This is a work in progress: please <strong>do not</strong> consider it an official resource at the moment. If you find an issue, or have a suggestion, please <a href="https://github.com/wolves-and-the-west/wolves-and-the-west.github.io/issues" target="_blank">submit an issue</a> or <a href="mailto:wolves.and.the.west@gmail.com">e-mail me</a>.</p>
     </div>
 
-    <section id="body" class="expanded row">
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+          <li class="menu-text">
+            <h1>
+              <img src="images/wolf.svg" class="logo">
+              <strong>Wolves and the West</strong>
+            </h1>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-      <h1>
-        <img src="images/wolf.svg" class="logo">
-        <strong>Wolves and the West</strong>
-      </h1>
+    <section class="expanded row">
+      <div class="small-11 small-centered columns">
 
-      <section class="page-section">
-        <h3 class="section-header">Causes and Costs of Livestock Loss</h3>
-        <h4 class="section-subheader">A Nationwide Glance</h4>
-        <div class="expanded row">
-          <div class="loss-glance"></div>
-        </div>
-      </section>
+        <section class="page-section">
+          <h3 class="section-header">Causes and Costs of Livestock Loss</h3>
+          <h4 class="section-subheader">A Nationwide Glance</h4>
+          <div class="expanded row">
+            <div class="loss-glance"></div>
+          </div>
+        </section>
 
-      <section class="page-section">
-        <h3 class="section-header">Western Cattle and Calf Losses</h3>
-        <h4 class="section-subheader">In Relation To Wolf Reintroduction</h4>
-        <div class="expanded row">
-          <section class="loss-legend">
-            <div class="row">
-              <div class="large-3 columns">
-                <span>
-                  <svg viewBox="0 0 15 15" class="legend-svg">
-                    <line x1="0" y1="10" x2="15" y2="10" class="loss-cattle"/>
-                  </svg>
-                  Cattle (All Causes)
-                </span>
+        <section class="page-section">
+          <h3 class="section-header">Western Cattle and Calf Losses</h3>
+          <h4 class="section-subheader">In Relation To Wolf Reintroduction</h4>
+          <div class="expanded row">
+            <section class="loss-legend">
+              <div class="row">
+                <div class="large-3 columns">
+                  <span>
+                    <svg viewBox="0 0 15 15" class="legend-svg">
+                      <line x1="0" y1="10" x2="15" y2="10" class="loss-cattle"/>
+                    </svg>
+                    Cattle (All Causes)
+                  </span>
+                </div>
+                <div class="large-3 columns">
+                  <span>
+                    <svg viewBox="0 0 15 15" class="legend-svg">
+                      <line x1="0" y1="10" x2="15" y2="10" class="loss-calves"/>
+                    </svg>
+                    Calves (All Causes)
+                  </span>
+                </div>
+                <div class="large-3 columns">
+                  <span class="predator-loss-label">
+                    <svg viewBox="0 0 10 10" class="legend-svg">
+                      <circle cx="7.5" cy="7.5" r="7.5" class="predator-loss-slice"/>
+                    </svg>
+                    Both (Predator)</span>
+                </div>
+                <div class="large-3 columns">
+                  <span class="non-predator-loss-label">
+                    <svg viewBox="0 0 10 10" class="legend-svg">
+                      <circle cx="7.5" cy="7.5" r="7.5" class="non-predator-loss-slice"/>
+                    </svg>
+                    Both (Non-Predator)</span>
+                </div>
               </div>
-              <div class="large-3 columns">
-                <span>
-                  <svg viewBox="0 0 15 15" class="legend-svg">
-                    <line x1="0" y1="10" x2="15" y2="10" class="loss-calves"/>
-                  </svg>
-                  Calves (All Causes)
-                </span>
-              </div>
-              <div class="large-3 columns">
-                <span class="predator-loss-label">
-                  <svg viewBox="0 0 10 10" class="legend-svg">
-                    <circle cx="7.5" cy="7.5" r="7.5" class="predator-loss-slice"/>
-                  </svg>
-                  Both (Predator)</span>
-              </div>
-              <div class="large-3 columns">
-                <span class="non-predator-loss-label">
-                  <svg viewBox="0 0 10 10" class="legend-svg">
-                    <circle cx="7.5" cy="7.5" r="7.5" class="non-predator-loss-slice"/>
-                  </svg>
-                  Both (Non-Predator)</span>
-              </div>
+            </section>
+            <section id="loss-graphs"></section>
+          </div>
+          <div class="expanded row">
+            <div class="large-12 columns">
+              <section class="sources">
+                <h6>Sources</h6>
+                <ol>
+                  <li><a href="https://quickstats.nass.usda.gov" target="_blank">USDA/NASS QuickStats Ad-hoc Query Tool</a></li>
+                  <li><a href="https://usda.mannlib.cornell.edu/MannUsda/viewDocumentInfo.do?documentID=1427" target="_blank">Cattle Predator Loss (1995 &amp; 2000)</a></li>
+                  <li><a href="https://usda.mannlib.cornell.edu/MannUsda/viewDocumentInfo.do?documentID=1625" target="_blank">Cattle Death Loss (2005 &amp; 2010)</a></li>
+                </ol>
+              </section>
             </div>
-          </section>
-          <section id="loss-graphs"></section>
-        </div>
-        <div class="expanded row">
-          <div class="large-12 columns">
-            <section class="sources">
-              <h6>Sources</h6>
-              <ol>
-                <li><a href="https://quickstats.nass.usda.gov" target="_blank">USDA/NASS QuickStats Ad-hoc Query Tool</a></li>
-                <li><a href="https://usda.mannlib.cornell.edu/MannUsda/viewDocumentInfo.do?documentID=1427" target="_blank">Cattle Predator Loss (1995 &amp; 2000)</a></li>
-                <li><a href="https://usda.mannlib.cornell.edu/MannUsda/viewDocumentInfo.do?documentID=1625" target="_blank">Cattle Death Loss (2005 &amp; 2010)</a></li>
-              </ol>
+          </div>
+        </section>
+
+        <section class="page-section">
+          <div class="expanded row">
+            <section id="resources" class="medium-6 columns">
+              <h3 class="section-header">Resources</h3>
+            </section>
+            <section class="medium-6 columns">
+              <h1 class="section-header">&nbsp;</h1>
+              <a href="https://github.com/wolves-and-the-west/wolves-and-the-west.github.io/wiki/Data-Sources" target="_blank">About the Data Sources.</a>
             </section>
           </div>
-        </div>
-      </section>
-
-      <section class="page-section">
-        <div class="expanded row">
-          <section id="resources" class="medium-6 columns">
-            <h3 class="section-header">Resources</h3>
-          </section>
-          <section class="medium-6 columns">
-            <h1 class="section-header">&nbsp;</h1>
-            <a href="https://github.com/wolves-and-the-west/wolves-and-the-west.github.io/wiki/Data-Sources" target="_blank">About the Data Sources.</a>
-          </section>
-        </div>
-      </section>
-<!-- 
-      <section style="display: none">
-        <h3>
-          2011 Livestock Inventory<sup>1</sup>,
-          Losses<sup>2</sup>,
-          Confirmed Wolf Depredations on Cattle and Sheep<sup>3</sup>,
-          and Unconfirmed Wolf Depredations on Cattle<sup>4</sup></h3>
-        
-        <section id="population"></section>
-
-        <p><a data-toggle="population-table">Toggle Panel</a></p>
-
-        <section id="population-table" class="callout" data-toggler=".hide"></section>
-        
-        <section>
-          <h5>Sources</h5>
-          <ol>
-            <li>
-              <a href="https://quickstats.nass.usda.gov/results/AB0B9BFC-7A94-317C-8F1B-6DCAB7E59EFF" target="_blank">USDA/NASS QuickStats Ad-hoc Query Tool</a>
-            </li>
-            <li>
-              <a href="https://quickstats.nass.usda.gov/results/56B0DEBE-BBE8-334F-A1B8-8F150E749934" target="_blank">USDA/NASS QuickStats Ad-hoc Query Tool</a>
-            </li>
-            <li>
-              <a href="https://www.fws.gov/mountain-prairie/species/mammals/wolf/annualrpt11/FINAL_2011_Idaho_wolf_monitoring_progress_report.pdf" target="_blank">2011 Idaho Wolf Monitoring Progress Report</a>,<br>
-
-              <a href="http://www.fws.gov/mountain-prairie/species/mammals/wolf/annualrpt11/2011_REVISED-FINAL_MT_Wolf_Annual_Report.pdf" target="_blank">Montana Gray Wolf Conservation and Management 2011 Annual Report</a>,<br>
-
-              <a href="http://www.fws.gov/mountain-prairie/species/mammals/wolf/annualrpt11/FINAL_2011_OR_Wolf_Conservation_and_Management_Plan-Annual_Report.pdf" target="_blank">Oregon Wolf Conservation and Management Plan 2011 Annual Report</a>,<br>
-
-              <a href="https://www.fws.gov/mountain-prairie/es/species/mammals/wolf/annualrpt11/FINAL_030112_WA-AR_2011.pdf" target="_blank">Washington Gray Wolf Conservation and Management 2011 Annual Report</a>,<br>
-
-              <a href="https://www.fws.gov/mountain-prairie/es/species/mammals/wolf/annualrpt11/030612_FINAL_2011_WY_Annual_Report.pdf" target="_blank">Wyoming Wolf Recovery 2011 Annual Report</a>
-            </li>
-            <li>
-              <a href="https://usda.mannlib.cornell.edu/MannUsda/viewDocumentInfo.do?documentID=1625" target="_blank">Cattle Death Loss</a>
-            </li>
-          </ol>
         </section>
-      -->
-      </section>
-    </div>
+  <!-- 
+        <section style="display: none">
+          <h3>
+            2011 Livestock Inventory<sup>1</sup>,
+            Losses<sup>2</sup>,
+            Confirmed Wolf Depredations on Cattle and Sheep<sup>3</sup>,
+            and Unconfirmed Wolf Depredations on Cattle<sup>4</sup></h3>
+          
+          <section id="population"></section>
+
+          <p><a data-toggle="population-table">Toggle Panel</a></p>
+
+          <section id="population-table" class="callout" data-toggler=".hide"></section>
+          
+          <section>
+            <h5>Sources</h5>
+            <ol>
+              <li>
+                <a href="https://quickstats.nass.usda.gov/results/AB0B9BFC-7A94-317C-8F1B-6DCAB7E59EFF" target="_blank">USDA/NASS QuickStats Ad-hoc Query Tool</a>
+              </li>
+              <li>
+                <a href="https://quickstats.nass.usda.gov/results/56B0DEBE-BBE8-334F-A1B8-8F150E749934" target="_blank">USDA/NASS QuickStats Ad-hoc Query Tool</a>
+              </li>
+              <li>
+                <a href="https://www.fws.gov/mountain-prairie/species/mammals/wolf/annualrpt11/FINAL_2011_Idaho_wolf_monitoring_progress_report.pdf" target="_blank">2011 Idaho Wolf Monitoring Progress Report</a>,<br>
+
+                <a href="http://www.fws.gov/mountain-prairie/species/mammals/wolf/annualrpt11/2011_REVISED-FINAL_MT_Wolf_Annual_Report.pdf" target="_blank">Montana Gray Wolf Conservation and Management 2011 Annual Report</a>,<br>
+
+                <a href="http://www.fws.gov/mountain-prairie/species/mammals/wolf/annualrpt11/FINAL_2011_OR_Wolf_Conservation_and_Management_Plan-Annual_Report.pdf" target="_blank">Oregon Wolf Conservation and Management Plan 2011 Annual Report</a>,<br>
+
+                <a href="https://www.fws.gov/mountain-prairie/es/species/mammals/wolf/annualrpt11/FINAL_030112_WA-AR_2011.pdf" target="_blank">Washington Gray Wolf Conservation and Management 2011 Annual Report</a>,<br>
+
+                <a href="https://www.fws.gov/mountain-prairie/es/species/mammals/wolf/annualrpt11/030612_FINAL_2011_WY_Annual_Report.pdf" target="_blank">Wyoming Wolf Recovery 2011 Annual Report</a>
+              </li>
+              <li>
+                <a href="https://usda.mannlib.cornell.edu/MannUsda/viewDocumentInfo.do?documentID=1625" target="_blank">Cattle Death Loss</a>
+              </li>
+            </ol>
+          </section>
+        -->
+        </section>
+      </div>
+    </section>
 
     <section class="expanded row" id="footer">
       <div class="large-12 columns">
