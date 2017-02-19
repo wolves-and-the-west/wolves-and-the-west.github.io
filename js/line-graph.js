@@ -318,10 +318,10 @@ LineGraph = (function() {
     });
     if (this.annotateText) {
       annotation.append('text')
-        .attr('x', self.x(1998))
+        .attr('x', self.x(2002))
         .attr('y', 0)
         .attr('text-anchor', 'middle')
-        .text('Wolves reintroduced to Yellowstone & Idaho');
+        .text("Wolves reintroduced to Yellowstone & Idaho in '95 & '96");
     }
   }
 

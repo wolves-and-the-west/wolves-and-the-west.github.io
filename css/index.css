@@ -124,13 +124,12 @@ th:empty {
 }
 
 .wolf-reintro-annotation line {
-  stroke: firebrick;
+  stroke: forestgreen;
   stroke-width: 1px;
-  stroke-dasharray: 3;
 }
 
 .wolf-reintro-annotation text {
-  fill: firebrick;
+  fill: forestgreen;
   font-size: 0.75em;
 }
 
